@@ -1,0 +1,11 @@
+
+References Used:
+https://www.concretepage.com/spring-boot/spring-boot-rest-jpa-hibernate-mysql-example
+
+Currently Referencing
+https://www.callicoder.com/spring-boot-rest-api-tutorial-with-mysql-jpa-hibernate/
+
+https://www.petrikainulainen.net/programming/spring-framework/creating-a-rest-api-with-spring-boot-and-mongodb/
+https://dzone.com/articles/an-intro-to-spring-boot-with-spring-data-mongo
+http://www.thejavageek.com/2017/06/16/crud-application-using-angular-4-spring-rest-web-services-spring-data-jpa/
+

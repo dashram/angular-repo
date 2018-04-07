@@ -1,0 +1,39 @@
+
+App URL
+http://localhost:4200
+http://localhost:4200/oms/hello
+
+https://dzone.com/articles/angular-2-and-spring-boot-development-environment
+
+Referring Now
+https://www.concretepage.com/spring-boot/spring-boot-rest-angular-2-jpa-hibernate-mysql-crud-example
+http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial
+
+#Install angular_cli
+npm install –g angular-cli
+
+#Update npm
+npm i npm to update
+
+#To create client angular project, mode to location and use below command
+cd D:\OfficeManagementSystem\
+ng new oms-app-client
+
+#After importing the client project exclude node_modules folder from Eclipse build
+Right click on Project -> Properties -> Resource -> Resource Filter -> Add Filter, Exclude All, Files and Folders, node_modules
+
+#Client-Server Integration
+create a file “proxy.conf.json” in the oms-app-client directory with below content
+	{	“/oms :{
+			“target” : “http://localhost:8080”,
+			“secure” : false
+		}
+	}
+And Modify the start script to "start": "ng server --proxy-config proxy.conf.json" in package.json	
+
+//Angular plugin IDE
+https://marketplace.eclipse.org/content/angular-ide
+//more information about angular 2 guards. The auth guard is used to prevent unauthenticated users from accessing restricted routes
+https://blog.thoughtram.io/angular/2016/07/18/guards-in-angular-2.html
+
+http://localhost:4200/login?returnUrl=%2F
