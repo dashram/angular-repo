@@ -1,0 +1,32 @@
+
+#GET all users
+http://localhost:8888/oms/users/
+[{"userId":1,"userName":"admin","password":"admin","firstName":"Scott","lastName":"Tiger","emailId":"admin@gmail.com"},
+{"userId":3,"userName":"rama","password":"admin","firstName":"Scott","lastName":"Tiger","emailId":"rama@gmail.com"}]
+
+#GET user by id
+http://localhost:8888/oms/users/1
+{"userId":1,"userName":"admin","password":"admin","firstName":"Scott","lastName":"Tiger","emailId":"admin@gmail.com"}
+
+#POST create a user
+http://localhost:8888/oms/users/
+{
+    "userName": "admin2",
+    "password": "admin2",
+    "firstName": "admin2",
+    "lastName": "D",
+    "emailId": "admin2@gmail.com"
+}
+
+#PUT update a user
+http://localhost:8888/oms/users/2
+{
+    "userName": "admin",
+    "password": "admin",
+    "firstName": "Scott FirstName updated",
+    "lastName": "Tiger",
+    "emailId": "admin@gmail.com"
+}
+
+#Delete a user
+http://localhost:8888/oms/users/4

@@ -11,13 +11,13 @@ import com.rk.oms.model.Employee;
 import com.rk.oms.service.EmployeeService;
 
 @RestController
-@RequestMapping(path ="/employee", method = RequestMethod.GET)
+@RequestMapping(path ="/oms", method = RequestMethod.GET)
 public class EmployeeController {
 
 	@Autowired
 	EmployeeService employeeService;
 
-	@RequestMapping("/")
+	@RequestMapping("/employees")
 	public List<Employee> getEmployees() {
 		return employeeService.getEmployees();
 	}

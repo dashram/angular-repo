@@ -14,7 +14,7 @@ public class TestController {
 	@Autowired
 	EmployeeService employeeService;
 
-	@RequestMapping("/hello")
+	@RequestMapping("/test")
 	public String getEmployees() {
 		return "OMS! Office Management System - Angular SpringBoot App";
 	}

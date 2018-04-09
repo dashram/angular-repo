@@ -9,3 +9,6 @@ https://www.petrikainulainen.net/programming/spring-framework/creating-a-rest-ap
 https://dzone.com/articles/an-intro-to-spring-boot-with-spring-data-mongo
 http://www.thejavageek.com/2017/06/16/crud-application-using-angular-4-spring-rest-web-services-spring-data-jpa/
 
+REST service with good return code example
+https://dzone.com/articles/leverage-http-status-codes-to-build-a-rest-service
+
