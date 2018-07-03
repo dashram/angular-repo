@@ -7,5 +7,6 @@ import com.rk.oms.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+	User findByUserNameAndPassword(String userName, String password);
 
 }

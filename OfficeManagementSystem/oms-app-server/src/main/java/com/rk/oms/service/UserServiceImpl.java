@@ -58,4 +58,9 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
+	@Override
+	public User findUser(User user) {
+		return userRepository.findByUserNameAndPassword( user.getUserName(), user.getPassword());
+	}
+
 }

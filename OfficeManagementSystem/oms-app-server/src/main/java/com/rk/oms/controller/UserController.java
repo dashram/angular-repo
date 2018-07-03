@@ -28,6 +28,11 @@ public class UserController {
 	public User getUser(@PathVariable("id") Long userId) {
 		return userService.getUser(userId);
 	}
+	
+	@RequestMapping(path = "/users/find", method = RequestMethod.POST)
+	public User findUser(@RequestBody User user) {
+		return userService.findUser(user);
+	}
 
 	@RequestMapping(path = "/users", method = RequestMethod.POST)
 	public User createUser(@RequestBody User user) {
