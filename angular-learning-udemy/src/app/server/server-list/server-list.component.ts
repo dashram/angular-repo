@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-server-list',
@@ -6,10 +7,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./server-list.component.css']
 })
 export class ServerListComponent implements OnInit {
+  allowNewServer = false;
+  serverCreationStatus = "No server was created.";
+  serverName = '';
+  sercerCreated: boolean = false;
+  servers = ['TestSrv', 'ProdSrv'];
 
-  constructor() { }
+  constructor() {
+    setTimeout(() => {
+      this.allowNewServer = true;
+    }, 2000);
+   }
 
   ngOnInit() {
+  }
+
+  onServerCreate(){
+    //to log output on terminal of developer-tool
+    console.log("### onServerCreate triggered on CLICK event...");
+    this.sercerCreated = true;
+    this.servers.push(this.serverName);
+    this.serverCreationStatus = "Server created successfully... Server Name is : " + this.serverName;
+  }
+
+  onServerUpdate(event: Event){
+    //to log output on terminal of developer-tool
+    console.log(event);
+    this.serverName = (<HTMLInputElement> event.target).value;
   }
 
 }

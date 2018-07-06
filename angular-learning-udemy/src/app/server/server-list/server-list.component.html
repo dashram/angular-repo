@@ -1,2 +1,31 @@
-<app-server></app-server>
-<app-server></app-server>
+<div class="container">
+    <div class="container">
+        <label>Server Name: </label>
+
+        <!--
+        //One-way data binding
+        <input type="text" class="form-control" (input)="onServerUpdate($event)">
+        -->
+
+        <!--Two-way data binding using directive *ngModel-->
+        <input type="text" class="form-control" [(ngModel)]="serverName">
+
+        <!--String interpolation-->
+        <p>Server to add is: {{serverName }}</p>
+        <!--Property binding: [disabled], Event binding: (click)-->
+        <button class="btn btn-primary" [disabled]="!allowNewServer" (click)="onServerCreate()" > Add Server </button>
+    </div>
+
+    <!--String interpolation-->
+    <p> {{ serverCreationStatus }} </p>
+
+    <!--ngIf with else condition by using local reference/marker-->
+    <p *ngIf="sercerCreated; else noServer"> Status with ngIf: Server created!! </p>
+    <ng-template #noServer>
+        <p>No server created!!!</p>
+    </ng-template>
+    <hr>
+
+    <!--Without component communication use *ngFor to loop over component-->
+    <app-server *ngFor="let srv of servers"></app-server>
+</div>

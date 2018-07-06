@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ServerComponent } from './server/server.component';
 import { ServerListComponent } from './server/server-list/server-list.component';
+import { FormsModule} from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { ServerListComponent } from './server/server-list/server-list.component'
     ServerListComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule    
   ],
   providers: [],
   bootstrap: [AppComponent]
