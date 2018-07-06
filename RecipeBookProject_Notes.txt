@@ -1,0 +1,28 @@
+
+
+Additionally, when using a project created with Angular CLI 6+ (check via ng -v ), 
+you'll have an angular.json  file instead of an .angular-cli.json  file. 
+In that file, you still need to add Bootstrap to the styles[]  array as shown in the next video, 
+but the path should be 
+node_modules/bootstrap/dist/css/bootstrap.min.css , NOT ../node_modules/bootstrap/dist/css/bootstrap.min.css . 
+The leading ../  must not be included.
+
+#Create New Project
+ng new RecipeBookProject
+#Install bootstrap
+npm install --save bootstrap@3
+npm install --save bootstrap@latest
+#Add below bootstrap file in angular.json
+node_modules/bootstrap/dist/css/bootstrap.min.css
+#Start application
+ng serve
+
+ng g c header --spec false
+ng g c recipes --spec false
+ng g c recipes/recipe-list --spec false
+ng g c recipes/recipe-detail --spec false
+ng g c recipes/recipe-list/recipe-item --spec false
+
+ng g c shopping-list --spec false
+ng g c shopping-list/shopping-edit --spec false
+
