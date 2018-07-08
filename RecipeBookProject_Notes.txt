@@ -60,5 +60,23 @@ ng g c shopping-list/shopping-edit --spec false
 	#recipe-list.component.html
 	<app-recipe-item *ngFor="let recipeItem of recipes" [recipe]=recipeItem></app-recipe-item>	
 ----------------------------- Property Binding Ended------------------------------------
+----------------------------- Local Refs with @ViewChild -------------------------------
+#passing value using local-ref(#nameInput, ) and @ViewChild parent to child component
+	#shopping-edit.component.html
+	<input type="text" id="name" class="form-control" #nameInput >
+	<input type="number" id="amount" class="form-control" #amountInput >
+	
+	#
+	@ViewChild('nameInput') nameInputRef: ElementRef;
+	@ViewChild('amountInput') amountInputRef: ElementRef;
+	  onAddItem(){
+		const ingName = this.nameInputRef.nativeElement.value;
+		const ingAmount = this.amountInputRef.nativeElement.value;
+		const newIngredient = new Ingredient(ingName, ingAmount);
+		this.ingredientAdded.emit(newIngredient);
+	  }
+	
+	
+
 	
 
