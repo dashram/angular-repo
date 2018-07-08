@@ -11,7 +11,6 @@ The leading ../  must not be included.
 ng new RecipeBookProject
 #Install bootstrap
 npm install --save bootstrap@3
-npm install --save bootstrap@latest
 #Add below bootstrap file in angular.json
 node_modules/bootstrap/dist/css/bootstrap.min.css
 #Start application
@@ -25,4 +24,32 @@ ng g c recipes/recipe-list/recipe-item --spec false
 
 ng g c shopping-list --spec false
 ng g c shopping-list/shopping-edit --spec false
+
+--------------------------------------------------------------------------------------
+##Event Binding implementation to display Recipe or Shopping-List
+#Step1: click event listeners added to header section on Recipe and Shopping-List	
+	#header.component.html
+	<li><a href="#" (click)="onSelect('recipe')">Recipes</a></li>
+    <li><a href="#" (click)="onSelect('shopping-list')">Shopping List</a></li>
+	
+	#event emitter added to listen to the event and emit the event to other component
+	#header component.ts
+	@Output() featureSelected = new EventEmitter<string>();
+	onSelect(feature: string){
+		this.featureSelected.emit(feature);
+	}
+#Step2: Liten to the event emitted from click even previously created  that "featureSelected"
+	#app.component.html
+	<app-header (featureSelected)="onNavigation($event)" ></app-header>
+	<app-recipes *ngIf="loadedFeature === 'recipe'"></app-recipes>
+    <app-shopping-list *ngIf="loadedFeature !== 'recipe'"></app-shopping-list>
+	
+	#app.component.ts
+	loadedFeature: string = 'recipe';
+	
+	onNavigation(feature: string){
+	   this.loadedFeature = feature;
+	}
+	
+	
 
