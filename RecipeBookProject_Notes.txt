@@ -25,7 +25,7 @@ ng g c recipes/recipe-list/recipe-item --spec false
 ng g c shopping-list --spec false
 ng g c shopping-list/shopping-edit --spec false
 
---------------------------------------------------------------------------------------
+----------------------------- Event Binding --------------------------------------
 ##Event Binding implementation to display Recipe or Shopping-List
 #Step1: click event listeners added to header section on Recipe and Shopping-List	
 	#header.component.html
@@ -50,6 +50,15 @@ ng g c shopping-list/shopping-edit --spec false
 	onNavigation(feature: string){
 	   this.loadedFeature = feature;
 	}
+----------------------------- Event Binding Ended --------------------------------------
+----------------------------- Property Binding -----------------------------------------
+#Data binding happened from "Recipe List" component to "Recipe Item" Component
+	#Binded or passed data from Parent Component to Child Component with data binding
+	#recipe-item.component.ts
+	@Input() recipe: Recipe;
 	
+	#recipe-list.component.html
+	<app-recipe-item *ngFor="let recipeItem of recipes" [recipe]=recipeItem></app-recipe-item>	
+----------------------------- Property Binding Ended------------------------------------
 	
 
