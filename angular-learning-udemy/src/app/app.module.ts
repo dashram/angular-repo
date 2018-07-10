@@ -8,6 +8,8 @@ import { FormsModule} from '@angular/forms';
 import { DatabindComponent } from './databind/databind.component';
 import { CockpitComponent } from './databind/cockpit/cockpit.component';
 import { ServerElementComponent } from './databind/server-element/server-element.component'
+import { HighLightDirective } from './highlight-directive/highlight.directive';
+import { BetterHighLightDirective } from './highlight-directive/better-highlight.directive';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { ServerElementComponent } from './databind/server-element/server-element
     ServerListComponent,
     DatabindComponent,
     CockpitComponent,
-    ServerElementComponent
+    ServerElementComponent,
+    HighLightDirective,
+    BetterHighLightDirective
   ],
   imports: [
     BrowserModule,
