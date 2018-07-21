@@ -11,4 +11,6 @@ export class HighLightDirective implements OnInit {
         this.elementRef.nativeElement.style.backgroundColor = 'green';
         this.elementRef.nativeElement.style.color = 'white';
     }
+
+    
 }
