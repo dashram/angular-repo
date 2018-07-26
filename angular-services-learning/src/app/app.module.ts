@@ -22,6 +22,8 @@ import { ServersService } from './servers/servers.service';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthGuard } from './auth/auth-guard.service';
+import { AuthFakeService } from './auth/auth-fake.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { AppRoutingModule } from './app-routing.module';
   providers: [
     AccountService, 
     LoggingService,
-    ServersService
+    ServersService,
+    AuthGuard,
+    AuthFakeService
   ],
   bootstrap: [AppComponent]
 })
