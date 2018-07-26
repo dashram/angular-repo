@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthFakeService } from '../auth/auth-fake.service';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authFakeService: AuthFakeService) { }
 
   ngOnInit() {
   }
@@ -16,6 +17,14 @@ export class HomeComponent implements OnInit {
   onLoadServer(id: number){
     //some calculation
     this.router.navigate( ['/servers', id, 'edit'], { queryParams: {allowEdit: '1'}, fragment: 'loading'} );
+  }
+
+  onLogin(){
+    this.authFakeService.login();
+  }
+
+  onLogout(){
+    this.authFakeService.logout();
   }
 
 }
