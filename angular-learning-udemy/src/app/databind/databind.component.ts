@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import 'rxjs/Rx';
+import { Observer } from 'rxjs/Observer';
+import { Observable } from 'rxjs/Rx';
+
 @Component({
   selector: 'app-databind',
   templateUrl: './databind.component.html',
@@ -15,6 +19,28 @@ export class DatabindComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    //Custom Observable example, for this 'rxjs-compat' package required. npm install --save rxjs-compat
+    const myObservable = Observable.create(
+      (observer: Observer<string>) => {
+        setTimeout(           
+          () => {
+            observer.next('$$$$$$$$$first package');
+          }, 2000 );
+        setTimeout(
+          () => {
+            observer.next('$$$$$$$$$second package');
+          }, 4000 );
+        setTimeout(
+          () => {
+            observer.error('$$$$$$$$$this does not work');            
+          }, 5000 );
+      });
+
+    myObservable.subscribe(
+      (data: string) => { console.log( data ); },
+      (error: string) => { console.log(error); },
+      () => { console.log('Completed'); }
+    );
   }  
 
   onServerAdded( serverData: {serverName: string, serverContent: string} ) {
