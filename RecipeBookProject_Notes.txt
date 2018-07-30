@@ -21,9 +21,14 @@ ng g c recipes --spec false
 ng g c recipes/recipe-list --spec false
 ng g c recipes/recipe-detail --spec false
 ng g c recipes/recipe-list/recipe-item --spec false
-
 ng g c shopping-list --spec false
 ng g c shopping-list/shopping-edit --spec false
+ng g directive shared/dropdown --spec false
+ng g c recipes/recipe-start --spec false
+ng g c recipes/recipe-edit --spec false
+
+#To use old rxjs imports, below package need to be installed
+npm install --save rxjs-compat
 
 ----------------------------- Event Binding --------------------------------------
 ##Event Binding implementation to display Recipe or Shopping-List
@@ -75,7 +80,27 @@ ng g c shopping-list/shopping-edit --spec false
 		const newIngredient = new Ingredient(ingName, ingAmount);
 		this.ingredientAdded.emit(newIngredient);
 	  }
-	
+----------------------------- Local Refs with @ViewChild End ----------------------------	
+#Routers implementation
+#app-router.module.ts
+const appRoutes: Routes = [
+    { path: '', redirectTo: '/recipes', pathMatch: 'full'},
+    { path: 'recipes', component: RecipesComponent},
+    { path: 'shopping-list', component: ShoppingListComponent}
+];
+#app.component.html, it will decide which component to load based on router Component and selected router
+<router-outlet></router-outlet>
+#header.component.html, "routerLinkActive" enables current tab highlight feature
+<li routerLinkActive="active"><a routerLink="/recipes" >Recipes</a></li>
+<li routerLinkActive="active"><a routerLink="/shopping-list">Shopping List</a></li>
+
+#Fetching data from router link
+#Below one will load only one time on click of route
+const recipeId = this.route.snapshot.params['id'];
+#To load data dynamically we need to subscribe to the router data
+
+
+
 	
 
 	

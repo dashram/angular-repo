@@ -9,9 +9,9 @@ export class RecipeService {
 
     private recipes: Recipe[] = [
         new Recipe(
-            "Mutter Curry", 
-            "Veg Mutter Curry", 
-            "https://cdn.pixabay.com/photo/2017/05/16/16/44/wood-board-2318325_960_720.jpg",
+            "Pizza Exorita", 
+            "Veg. Pizza", 
+            "https://cdn.pixabay.com/photo/2014/07/08/12/34/pizza-386717_960_720.jpg",
             [
                 new Ingredient('Mutter', 200),
                 new Ingredient('Potato', 100)
@@ -33,6 +33,10 @@ export class RecipeService {
     getRecipes(){
         //slice used to return a copy of array instead of actual reference
         return this.recipes.slice();
+    }
+
+    getRecipe(index: number){
+        return this.recipes[index];
     }
 
     addIngredientsToShoppingList(ingredients: Ingredient[]) {
