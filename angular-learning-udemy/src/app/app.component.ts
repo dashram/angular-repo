@@ -8,9 +8,12 @@ import { NgForm } from '@angular/forms';
 })
 export class AppComponent {
   title = 'Angular6';
+  dafaultQuestion = 'pet';
+  answer = '';
 
   //Another approach to capture form object using decorator
   @ViewChild('frm') userForm: NgForm;
+
 
   /*onSubmit(form: NgForm){
     console.log(form);
