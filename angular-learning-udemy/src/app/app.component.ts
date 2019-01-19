@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Angular6';
+
+  onSubmit(){
+    console.log("Submitted....");
+  }
 }
