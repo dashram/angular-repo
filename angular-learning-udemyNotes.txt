@@ -1,0 +1,18 @@
+#Create new project on any directory path
+ng new angular-learning-udemy
+#Run application with below command (http://localhost:4200/)
+ng serve
+
+#1st example
+#create a new component
+ng g c server
+ng g c server/server-list
+
+selector selector:"app-server" can be used as element, or as attribute by enclosing in selector:"[app-server]"
+
+#2nd Example
+#databinding-component
+#create a new component
+ng g c databind
+ng g c databind/cockpit --spec false
+ng g c databind/server-element --spec false

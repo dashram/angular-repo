@@ -1,0 +1,24 @@
+#Uninstall and install angular cli to latest
+npm uninstall -g @angular/cli
+npm cache verify
+npm install -g @angular/cli@latest		:@angular/cli@6.0.8
+
+#Update npm
+npm install -g npm@latest 
+npm -v									:6.1.0
+
+#Install bootstrap
+npm install --save bootstrap@latest
+npm install --save bootstrap@3
+
+#Create different components using cli command
+Scaffold	Usage
+Component	ng g component my-new-component
+Directive	ng g directive my-new-directive
+Pipe		ng g pipe my-new-pipe
+Service		ng g service my-new-service
+Class		ng g class my-new-class
+Guard		ng g guard my-new-guard
+Interface	ng g interface my-new-interface
+Enum		ng g enum my-new-enum
+Module		ng g module my-module

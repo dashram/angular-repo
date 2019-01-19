@@ -1,0 +1,14 @@
+
+Angular and Spring Boot projects
+
+Basic CRUD App with Angular 5.0 and Spring Boot 2.0
+https://github.com/oktadeveloper/okta-spring-boot-2-angular-5-example
+
+Spring Boot + Angular 5 +Spring Data + Rest Example(CRUD)
+https://www.devglan.com/spring-boot/spring-boot-angular-example
+
+
+Consuming a REST Service with Angular 6: a Step-by-step Guide
+https://vocon-it.com/2017/06/24/consuming-a-restful-web-service-with-angular-4/
+
+https://www.barbarianmeetscoding.com/blog/2016/04/02/getting-started-with-angular-2-step-by-step-6-consuming-real-data-with-http/

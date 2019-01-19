@@ -1,0 +1,250 @@
+Depending on the CLI version you're using, you might also need to add the FormsModule  to the imports[]  array in your app.module.ts  file (add it if you don't see it there). You might not fully understand what that all means but we're going to cover that in this course, no worries.
+If you don't have FormsModule  in imports[]  in AppModule , please do add it and also add an import at the top of that file: import { FormsModule } from '@angular/forms'; 
+
+Angular CLI
+>npm install -g @angular/cli
+>npm install -g @angular/cli@latest		(installed latest package as + @angular/cli@6.0.8)
+>npm install bootstrap					(install bootstrap)
+>ng new my-dream-app
+>cd my-dream-app
+>ng serve
+
+download and install NodeJS. 
+npm: node package manager
+
+Structural Directive
+* indicates its a structural directive
+
+#Create new project on any directory path
+>ng new my-first-app
+#Run application with below command (http://localhost:4200/)
+>ng serve
+
+#create a new component
+>ng generate component <componentname>
+>ng g c servers
+
+#Debug tool for Angular
+Augury (Crome extenstion)
+
+#Google font
+
+#Services in Angular
+#Inject service using consturctor as below. Service injected on a component will be propagated on child components
+export class LoggingService {    
+    logStatusChange(status: string){
+        console.log('LoggerService: A server status changed, new status: ' + status);
+    }
+}
+//Injecting service in constructor
+constructor(private loggingService: LoggingService){ }
+//add provider also for the service
+providers: [LoggingService]
+
+//To use a service in another servce, @Injectable need be applied on the service in which we want to use the other service.
+@Injectable()
+export class AccountService {
+
+
+
+#Install Angular CLI 
+	npm install -g @angular/cli			
+	npm update -g @angular/cli		//@angular/cli@1.6.6
+	npm update
+	npm install -g typescript
+	
+#Create a new project named angular-tour-of-heroes with this CLI command.
+	ng new angular-tour-of-heroes
+	
+#Serve the application (Start)
+	cd angular-tour-of-heroes
+	ng serve --open  
+	or ng s -o
+	
+#Create a new component using angular CLI
+	ng generate component heroes	
+	
+TechM Link
+https://mytube.techmahindra.com/app/video/gcc-8e2cc54f-d021-494f-927f-837fd765bf16?search=angular
+https://mytube.techmahindra.com/app/video/gcc-e98227d8-221c-455b-bc25-5911ac76fddb?search=angular
+https://mytube.techmahindra.com/app/video/gcc-cde28682-46e1-4c60-8c93-c8f07e58c892?search=angular		day3
+https://mytube.techmahindra.com/app/video/gcc-cde28682-46e1-4c60-8c93-c8f07e58c892?search=angular		day3-2 2.20.00 	
+https://mytube.techmahindra.com/app/video/gcc-592d6863-685c-4ce6-84cd-b19ea2ccbd1a?search=angular		day4-2
+TypeScript (Language): Superset of Java Script
+ES2015 Module System
+
+## install type script globally
+npm install -g typescript
+## tranpile a typescript(ts) file to javascript
+tsc emp.ts	
+
+#npm proxy setting
+npm config set proxy http://"user:password"@proxy.server:80
+npm config set https-proxy http://"user:password"@proxy.server:80
+
+
+##to run the traspiled js file
+node emp.js
+
+##online editor for typescript code transpilation
+https://www.typescriptlang.org/play/
+
+TypeScript = ES6(classes+Modules+let+const+rest)+Types + Decorators
+classs
+module, import
+arrow function: previously known as anonymous function
+
+Data Types
+let isDone: boolean = false;
+let height: number = 8;
+let weight: number = 3.4;
+let name: string= "ram";
+let list: number[] = [1, 2 , 3];
+let lest: Array<number> = [1, 2 , 3];
+enum Color (Red, Green, Blue);
+let c: Color = Color.Green;
+let notSure: any = 4;
+notSure = "may be a string";
+notSure = false;
+
+#Start angular with two sample apps
+#using quick start 
+1. download quick-start master
+2. npm install	//in install package
+3. npm start
+
+#using Angular cli
+1. npm install -g @angular/cli
+2. ng new my-app
+3. ng serve -o
+
+Major building blocks of Angular
+1. Component
+	>Basic building block of Angular applicatin
+	>Typically a typescript class which has a template attached
+	>Properties and methods are accessible to the attached template
+	>Can contain child component
+	>Component can be navigated using routing and selectors
+	>Can have meta data associated which describes the component
+	>Component = Template + Class(Properties/Methods) + Metadata
+	>Angular application = component + components + ....
+2. Module
+	>Angular apps are modular
+	>Angular has its own modular system called NgModules
+	>Defined using ES6 class
+	>A module typically exports something of purpose
+	>Every ES6 service, component, directive, pipes act as a module.
+	>1. Root Angular Module: it will bootstrap the application
+	 2. Feature Angular Module: 
+	>import { Module1, Module2} from './modulefile'
+3. Service
+	>Singleton reusable services
+	>Services injected into the application by the framework
+	>Declaired as providers
+	>A mechanism used to share functionalities over components
+	>Component may consume services to perform specific task
+	>Angular creates singleton objects of the service
+4. Template & Metadata
+	>A template is a form of HTML that tells angular how to render the component
+	>Metadata tells angular how to process a class
+	>In TypeScript you attah metadata by using a decorator
+	>The template metadata and component tother makes a view
+5. Directive
+	>Directive are everywhere in angular application
+	>A typescript class with metadata
+	>May or may not have template attached
+	Attribute directives
+	Structural directives
+	Custom directives
+	Directive is same same as component but without a template attached to it
+6. Pipes
+	>Kind of filters used to perform some action while rendering like Uppercasing the letter
+7. Dependacy Injection
+	>DI is a way to supply a new instance of a class with the fully-formed dependencies it require
+	>Most dependancies are services
+	>Angular uses DI to provide new components with the service they need
+8. Data Binding
+	>Model and View binding
+	>In angular2 has oneway or twoway binding
+	>One is property binding and another is event binding
+	{{value}}
+	[property] = 'Value'
+	(event) = "handler"
+	[(ng-model)] = "property"		//ngModel need FormsModule which is in @angular/forms in angular2
+	
+Event binding(one way)		():   Binding from template like (click) event to component element or property.
+								  (click) = "selectPerson(person)"
+Property binding(one way)	[]:   Binding from component to a template like [person] component to app-person-details template
+								  <img [src]="imagelocation" />		//System defined tag property binding
+								  <app-person-details  [person]="selectedPerson">   //Customer or user definded tag 
+Two way databinding			[()]: ball in the box- used for two way data binding
+								  <input [(ndModel)]= "message" />
+@input:		Parent to pass value to child
+@output: 	Child to pass value to parent
+ngOnInit is the lifecycle hook method of angualr
+
+
+//create a new module/angular project (TechM-App)	
+ng new TechM-Angular-App
+//create a new class
+ng g class Person
+//create a component person-list
+ng g component person-list			//ng g c person-list
+ng g component person-list -it -is	//create component with inline template and inline style
+//create a service and inject to application to use
+ng g service person					//ng g s person
+//few ng commands
+ng g --help
+ng new my-app --skip-install --skip-git --routing --inline-template 
+ng g c new-component
+ng g c admin --spec=false
+ng g c site-header --flat=true	//creates in src/app
+ng g cl product
+ng g i person  //create interface
+ng g s data		//create service
+ng g p pipe
+ng g d mydir
+ng g m my-module
+ng g m -r 
+ng serve --host 0.0.0.0 --port 4021
+ng test		//To run unit tests
+ng e2e		//To run end to end tests
+
+Building
+ng build	//Tranpils typescript files to javascript and bundles 
+			minifest, uglifiles, does tree-shacking, creates 
+			map files to allow for debugging on the browser,
+			The result is written to the dist derectory
+ng build --target = production
+ng build --target = development  //Default, donot minify/uglify
+ng build --environment = prod	//environment file to be used while building
+ng eject	//To decouple your project from angular cli. Most of the work need to be handled manually
+
+
+Asyncronus processing:
+Angular2 uses Observable concept instead of Callback or Promises
+Promise API	(Can handle only one event)
+	1. Pending
+	2. Fulfilled
+	3. Rejected
+	called once 
+	returns a single value
+	can not cancel the fired request
+Observable 	(Used in Angular2 - Can handle multiple events)
+	Uses ES7 featues
+	RxJS - External library required
+		Operators (Map, filter, ...)
+	Handle multiple values over time
+	Real-time data
+	Can regenates generate request by cancelling previous event
+	Ex: auto search box of google
+	
+//crease custom pipe
+ng g p capital	
+
+Angular forms
+1. Template Driven
+2. Reactive or Model Driven
+
+
+

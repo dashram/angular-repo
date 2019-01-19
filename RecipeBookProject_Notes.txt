@@ -1,4 +1,8 @@
 
+npm install -g npm@latest
+npm install -g @angular/cli@latest
+npm install --save bootstrap@3
+npm install
 
 Additionally, when using a project created with Angular CLI 6+ (check via ng -v ), 
 you'll have an angular.json  file instead of an .angular-cli.json  file. 
@@ -29,6 +33,12 @@ ng g c recipes/recipe-edit --spec false
 
 #To use old rxjs imports, below package need to be installed
 npm install --save rxjs-compat
+
+#More details can be found on Observables
+reactivex.io/rxjs
+
+#Uninstall compat re remove compatibility of older rxjs and remove all import with "import {<anypackage>} from 'rsjs';
+npm uninstall --save rxjs-compat
 
 ----------------------------- Event Binding --------------------------------------
 ##Event Binding implementation to display Recipe or Shopping-List
