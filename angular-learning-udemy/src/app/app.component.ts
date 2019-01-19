@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -9,7 +9,14 @@ import { NgForm } from '@angular/forms';
 export class AppComponent {
   title = 'Angular6';
 
-  onSubmit(form: NgForm){
+  //Another approach to capture form object using decorator
+  @ViewChild('frm') userForm: NgForm;
+
+  /*onSubmit(form: NgForm){
     console.log(form);
+  }*/
+
+  onSubmit(){
+    console.log(this.userForm)
   }
 }
