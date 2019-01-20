@@ -10,6 +10,7 @@ export class AppComponent {
   title = 'Angular6';
   dafaultQuestion = 'pet';
   answer = '';
+  genders = ['male', 'female'];
 
   //Another approach to capture form object using decorator
   @ViewChild('frm') userForm: NgForm;
