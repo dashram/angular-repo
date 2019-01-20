@@ -31,7 +31,10 @@
                 name="userName"
                 required>
             </div>
-            <button class="btn btn-default" type="button">Suggest a user name</button>
+            <button 
+              class="btn btn-default" 
+              type="button"
+              (click)="suggestedUserName()">Suggest a user name</button>
             <div class="form-group">
               <label for="email">Email: </label>
               <input 

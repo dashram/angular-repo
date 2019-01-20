@@ -15,6 +15,19 @@ export class AppComponent {
   //Another approach to capture form object using decorator
   @ViewChild('frm') userForm: NgForm;
 
+  suggestedUserName(){
+    const suggestedName = "SuperUser";
+    this.userForm.setValue({
+      userData: {
+        userName: suggestedName,
+        email: '',
+        gender: 'male'
+      },
+      secret: 'pet',
+      questionAnswer: ''
+    });
+  }
+
 
   /*onSubmit(form: NgForm){
     console.log(form);
