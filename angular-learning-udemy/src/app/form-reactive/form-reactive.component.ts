@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./form-reactive.component.css']
 })
 export class FormReactiveComponent implements OnInit {
+  genders = ['male', 'Female'];
 
   constructor() { }
 
