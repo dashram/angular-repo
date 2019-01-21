@@ -12,12 +12,21 @@ export class AppComponent {
   answer = '';
   genders = ['male', 'female'];
 
+  userDetail = {
+    userName: '',
+    email: '',
+    gender: '',
+    secretQ: '',
+    answer: ''
+  }
+  formSubmitted = false;
+
   //Another approach to capture form object using decorator
   @ViewChild('frm') userForm: NgForm;
 
   suggestedUserName(){
     const suggestedName = "SuperUser";
-    this.userForm.setValue({
+    /*this.userForm.setValue({
       userData: {
         userName: suggestedName,
         email: '',
@@ -25,6 +34,12 @@ export class AppComponent {
       },
       secret: 'pet',
       questionAnswer: ''
+    });*/
+
+    this.userForm.form.patchValue({
+      userData: {
+        userName: suggestedName
+      }
     });
   }
 
@@ -35,5 +50,12 @@ export class AppComponent {
 
   onSubmit(){
     console.log(this.userForm)
+    this.formSubmitted = true;
+    this.userDetail.userName = this.userForm.value.userData.userName;
+    this.userDetail.email = this.userForm.value.userData.email;
+    this.userDetail.gender = this.userForm.value.userData.gender;
+    this.userDetail.secretQ = this.userForm.value.secret;
+    this.userDetail.answer = this.userForm.value.questionAnswer;
   }
+  
 }

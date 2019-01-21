@@ -1,9 +1,9 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <!--<div style="text-align:center">
   <h3> Welcome to {{ title }}! </h3>
-</div>-->
+  </div>-->
 
-<div>
+
   <!--1st example-->
   <!--<app-server-list></app-server-list>-->
 
@@ -11,9 +11,9 @@
   <!--<app-databind></app-databind>-->
 
   <!--Form Example-->
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12 col-sm-10 col-md-8 col sm-offset-1 col-md-offset-2">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col sm-offset-1 col-md-offset-2">
         <!--Local ref element "frm" for ngForm object created and passed-->
         <form (ngSubmit)="onSubmit(frm)" #frm="ngForm">
           <div 
@@ -87,9 +87,22 @@
             class="btn btn-primary" 
             type="submit"
             [disabled]=!frm.valid>Submit</button>
-        </form>
-      
+        </form>      
+    </div>
+    <div class="row">
+      <div class="col-xs-12" *ngIf="formSubmitted">
+        <hr>
+        <h3>Your data: </h3>
+        <p>User Name: {{userDetail.userName}} </p>
+        <p>eMail: {{userDetail.email}} </p>
+        <p>Gender: {{userDetail.gender}} </p>
+        <p>Secrete question: Your first {{userDetail.secretQ}}? </p>
+        <p>Answer: {{userDetail.answer}} </p>
+      </div>
     </div>
   </div>
 </div>
+
+
+
 
