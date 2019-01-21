@@ -56,6 +56,9 @@ export class AppComponent {
     this.userDetail.gender = this.userForm.value.userData.gender;
     this.userDetail.secretQ = this.userForm.value.secret;
     this.userDetail.answer = this.userForm.value.questionAnswer;
+
+    //Reset form data
+    this.userForm.reset();
   }
   
 }
