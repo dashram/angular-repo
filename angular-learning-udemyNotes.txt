@@ -17,5 +17,8 @@ ng g c databind
 ng g c databind/cockpit --spec false
 ng g c databind/server-element --spec false
 
+//Component to explain form data object with Template Driven approach
+ng g c formTemplateDriven
+
 Emmet: for auto complete feature and shotcuts
 https://docs.emmet.io/cheat-sheet/

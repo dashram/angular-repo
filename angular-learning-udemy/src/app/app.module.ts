@@ -11,6 +11,8 @@ import { CockpitComponent } from './databind/cockpit/cockpit.component';
 import { ServerElementComponent } from './databind/server-element/server-element.component'
 import { HighLightDirective } from './highlight-directive/highlight.directive';
 import { BetterHighLightDirective } from './highlight-directive/better-highlight.directive';
+import { FormTemplateDrivenComponent } from './form-template-driven/form-template-driven.component';
+import { FormReactiveComponent } from './form-reactive/form-reactive.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { BetterHighLightDirective } from './highlight-directive/better-highlight
     CockpitComponent,
     ServerElementComponent,
     HighLightDirective,
-    BetterHighLightDirective
+    BetterHighLightDirective,
+    FormTemplateDrivenComponent,
+    FormReactiveComponent
   ],
   imports: [
     BrowserModule,
