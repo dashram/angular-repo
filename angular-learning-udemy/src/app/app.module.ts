@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { ServerComponent } from './server/server.component';
 import { ServerListComponent } from './server/server-list/server-list.component';
-import { FormsModule} from '@angular/forms';
 import { DatabindComponent } from './databind/databind.component';
 import { CockpitComponent } from './databind/cockpit/cockpit.component';
 import { ServerElementComponent } from './databind/server-element/server-element.component'
@@ -30,8 +30,8 @@ import { FormReactiveComponent } from './form-reactive/form-reactive.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
-     
+    HttpModule,
+    ReactiveFormsModule     
   ],
   providers: [],
   bootstrap: [AppComponent]
