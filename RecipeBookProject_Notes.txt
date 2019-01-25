@@ -7,6 +7,10 @@ npm install
 Emmet: for auto complete feature and shotcuts
 https://docs.emmet.io/cheat-sheet/
 
+these are all built-in validators
+ https://angular.io/api/forms/Validators
+ https://angular.io/api?type=directive
+
 Additionally, when using a project created with Angular CLI 6+ (check via ng -v ), 
 you'll have an angular.json  file instead of an .angular-cli.json  file. 
 In that file, you still need to add Bootstrap to the styles[]  array as shown in the next video, 
