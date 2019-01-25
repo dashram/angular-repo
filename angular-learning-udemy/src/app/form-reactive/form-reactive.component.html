@@ -51,7 +51,9 @@
               [value]="gender">{{ gender }}
           </label>
         </div>
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-primary" type="button" (click)="onSubmit()">Submit</button>
+        <button class="btn btn-primary" type="button" (click)="onSetValue()">Set Value</button>
+        <button class="btn btn-primary" type="button" (click)="onPatchValue()">Patch Value</button>
       </form>
     </div>
   </div>

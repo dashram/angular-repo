@@ -10,7 +10,7 @@ import { reject } from 'q';
   styleUrls: ['./form-reactive.component.css']
 })
 export class FormReactiveComponent implements OnInit {
-  genders = ['male', 'Female'];
+  genders = ['male', 'female'];
   signupForm: FormGroup;
   forbiddenUserName = ['Chris', 'Anna'];
 
@@ -66,4 +66,32 @@ export class FormReactiveComponent implements OnInit {
     return promise;
   }
 
+  //Set all the form values using setValue
+  onSetValue(){
+    this.signupForm.setValue(
+      { userData: {
+          userName: "ALL User",
+          email: 'allField@test.com'
+        },
+        gender: 'female',
+        hobbies: []
+      }
+    )
+  }
+
+  //Set partial form values using patchValue
+  onPatchValue(){
+    this.signupForm.patchValue(
+      { userData: {
+          userName: "Patched User",
+          email: 'patched@test.com'
+        }
+      }
+    )
+  }
+
+  onSubmit(){
+    console.log(this.signupForm);
+    this.signupForm.reset();
+  }
 }
