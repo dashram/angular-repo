@@ -14,6 +14,8 @@
               formControlName="userName">
               <span class="help-block"
                 *ngIf="!signupForm.get('userData.userName').valid && signupForm.get('userData.userName').touched" >
+                <span 
+                  *ngIf="signupForm.get('userData.userName').errors['nameIsForbidden']">This name is invalid!</span>
                   Please enter a valid user name!
               </span>
           </div>
@@ -38,13 +40,13 @@
             <div 
               class="form-group"
               *ngFor="let hobbyControl of signupForm.get('hobbies').controls; let i = index">
-              <input type="text" class="form-group" [formControlName]="i"> 
+              <input type="text" class="form-control" [formControlName]="i"> 
             </div>
         </div>
         <div class="radio" *ngFor="let gender of genders">
           <label>
             <input
-              type="radio"
+              type="radio"              
               formControlName="gender"
               [value]="gender">{{ gender }}
           </label>
