@@ -23,6 +23,9 @@ ng g c formTemplateDriven
 //Component to explain form data object with Template Driven approach
 ng g c formReactive
 
+//create pipe 
+ng g p pipe/filter
+
 
 Emmet: for auto complete feature and shotcuts
 https://docs.emmet.io/cheat-sheet/
