@@ -29,3 +29,6 @@ ng g p pipe/filter
 
 Emmet: for auto complete feature and shotcuts
 https://docs.emmet.io/cheat-sheet/
+
+Http Module ( But there is a better Http module to use now: HttpClient)
+npm install --save @angular/http
