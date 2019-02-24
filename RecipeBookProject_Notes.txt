@@ -115,6 +115,9 @@ const appRoutes: Routes = [
 #Below one will load only one time on click of route
 const recipeId = this.route.snapshot.params['id'];
 #To load data dynamically we need to subscribe to the router data
+ 
+Pipes: (Pipe details can be found in angular doc)
+	value | pipeName: pipeParam
 
 
 

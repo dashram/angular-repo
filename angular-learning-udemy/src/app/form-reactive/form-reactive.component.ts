@@ -44,7 +44,7 @@ export class FormReactiveComponent implements OnInit {
 
   }
 
-  forbiddenNames(control: FormControl): {[s: String]: boolean} {
+  forbiddenNames(control: FormControl): {[s: string]: boolean} {
     if( this.forbiddenUserName.indexOf(control.value) !== -1){
       return { 'nameIsForbidden': true }
     }

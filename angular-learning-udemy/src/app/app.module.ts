@@ -13,6 +13,7 @@ import { HighLightDirective } from './highlight-directive/highlight.directive';
 import { BetterHighLightDirective } from './highlight-directive/better-highlight.directive';
 import { FormTemplateDrivenComponent } from './form-template-driven/form-template-driven.component';
 import { FormReactiveComponent } from './form-reactive/form-reactive.component';
+import { ShortenPipe } from './pipes/shorten.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FormReactiveComponent } from './form-reactive/form-reactive.component';
     HighLightDirective,
     BetterHighLightDirective,
     FormTemplateDrivenComponent,
-    FormReactiveComponent
+    FormReactiveComponent,
+    ShortenPipe
   ],
   imports: [
     BrowserModule,
