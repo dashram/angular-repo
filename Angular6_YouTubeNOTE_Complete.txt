@@ -23,10 +23,16 @@ ng new intro2angular
 cd intro2angular
 ng serve
 
-
-#main.ts is the entry poing of the application and it bootstraps the application
-#main.ts bootstraps AppModule which initialzes => component app.component.ts which renders => app.component.html
-
+Introduction
+	#main.ts is the entry poing of the application and it bootstraps the application
+	#main.ts bootstraps AppModule which initialzes => component app.component.ts which renders => app.component.html
+Decorators:
+	It decorates a class. Its not changing the behaviour of class but provies some additional information.
+	It just wraps code
+	Types of Decorators
+		1. Class Decorator
+		2. Member Decorator
+	
 
 
 
