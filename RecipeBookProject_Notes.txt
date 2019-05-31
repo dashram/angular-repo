@@ -37,6 +37,7 @@ ng g c shopping-list/shopping-edit --spec false
 ng g directive shared/dropdown --spec false
 ng g c recipes/recipe-start --spec false
 ng g c recipes/recipe-edit --spec false
+ng g service shared/data-storage --skipTests true	#create a service
 
 #To use old rxjs imports, below package need to be installed
 npm install --save rxjs-compat
