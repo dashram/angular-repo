@@ -27,17 +27,26 @@ node_modules/bootstrap/dist/css/bootstrap.min.css
 #Start application
 ng serve
 
+#Create component using Angular CLI
+ng g directive shared/dropdown --spec false
+ng g c shared/loading-spinner --spec false
+
+
 ng g c header --spec false
 ng g c recipes --spec false
 ng g c recipes/recipe-list --spec false
 ng g c recipes/recipe-detail --spec false
 ng g c recipes/recipe-list/recipe-item --spec false
-ng g c shopping-list --spec false
-ng g c shopping-list/shopping-edit --spec false
-ng g directive shared/dropdown --spec false
 ng g c recipes/recipe-start --spec false
 ng g c recipes/recipe-edit --spec false
-ng g service shared/data-storage --skipTests true	#create a service
+
+ng g c shopping-list --spec false
+ng g c shopping-list/shopping-edit --spec false
+
+ng g c auth/auth --spec false
+
+ng g service shared/data-storage --skipTests true		#create a service
+ng g service recipes/recipes-resolver --skipTests true	#create a service
 
 #To use old rxjs imports, below package need to be installed
 npm install --save rxjs-compat
