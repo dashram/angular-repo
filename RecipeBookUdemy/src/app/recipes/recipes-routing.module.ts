@@ -11,7 +11,7 @@ import { AuthGuard } from "../auth/auth.guard";
 
 const routes: Routes = [
       {
-        path: 'recipes',
+        path: '',
         component: RecipesComponent,
         //AuthGuard will redirect the page on every url access.
         canActivate: [AuthGuard],
