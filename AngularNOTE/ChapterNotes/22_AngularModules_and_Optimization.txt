@@ -1,0 +1,83 @@
+Section 22: Angular Modules & Optimizing Angular Apps
+
+Useful Resources:
+	Official Docs: https://angular.io/guide/ngmodules
+	NgModules FAQ: https://angular.io/guide/ngmodule-faq
+
+	Angular need to have atleast one Module that AppModule
+	Angular provided other modules like FormsModule
+	
+	In Recipe Book already we used 2 modules:
+		AppModule and AppRoutingModule
+		Other modules are BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule
+		
+	Every module works of its own and they dont communicate with each other.
+	To use other module's component/directives, the module need to be exported.
+	
+	Create Recipes.Module.ts:
+		1. Create src\app\recipes\recipes.module.ts file with @NgModule declaration
+		2. Move all Components from AppModule to RecipesModule into declaration section and import them
+		3. export all component/directives to make them available to use in other moduels/app module.
+		4. Import common angular modules in RecipeModule as well as Each module works in issolation
+		** BrowserModule can be used only once that in AppModule for Angular core features
+		** In Custom Modules, import CommonModule instead of BrowserModule for commond Angular features
+		5. To move routings related to Recipe module, create file src\app\recipes\recipes-routing.module.ts
+		6. Move recipe routes from app-routing.module.ts to recipes-routing.module.ts
+		7. import routes with "forChild" method as "forRoot" can be used only once and in app-routing.module
+		
+		**Multiple declaration of Components, or Directivesin different modules are not allowed. Those need to be reused should be exported and imported with Madule for use.
+		
+	Services:
+		1. Services can be used in whole application by adding into "providers" section of the Module or
+		2. Can be annoted with @Injectable({ providedIn: 'root' }) to use globally application wide.
+		** Better way to use service is with @Injectable({ providedIn: 'root' })
+		
+Optimization:		
+	Lazy Loading	
+		1. To make the lazy loading to work, feature modules need to have its own routes.(src\app\recipes\recipes-routing.module.ts)
+		2. add empty path to feature module and move the path to app-module and configure wiht loadChildren
+		3. in file: src\app\recipes\recipes-routing.module.ts
+			** { path: 'recipes', loadChildren: './recipes/recipes.module.ts#RecipeModule' }
+	
+	Alternative Lazy Loading Syntax
+		If you're using Angular 8+, you can use an alternative syntax for specifying lazy-loaded routes:
+
+		Instead of
+			const routes: Routes = [{
+			  path: 'your-path',
+			  loadChildren: './your-module-path/module-name.module#ModuleName'
+			}];
+		you can use
+			const routes: Routes = [{
+			  path: 'your-path',
+			  loadChildren: () => import('./your-module-path/module-name.module').then(m => m.ModuleName)
+			}];
+		
+		Please note, that you need to ensure that in your tsconfig.json(in my app src\tsconfig.app.json) file, you use
+		"module": "esnext",
+		instead of
+		"module": "es2015",
+		Why would you use this syntax? In the future, it'll replace the "string-only" approach (i.e. the first alternative mentioned here). It also will give you better IDE support.
+		
+	Pre-load in Lazy loading:
+		In file src\app\app-routing.module.ts, apply pre-load strategy to fastern loading of components
+			@NgModule({
+			  imports: [RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules})],
+			  exports: [RouterModule]
+			})
+			
+Service in Specific Modules:
+	1. Services declared in "providers" section of specific module will get separate instance wrt service declared in "providers" of app-module.
+	2. Best appriach is to use service with: @Injectable({ providedIn: 'root' }), which will avail the service to whole application.
+	
+AoT(Ahead of Time) and JiT(Just in Time):
+	ng build --prod
+		-It generates a dist folder which can be used for deployment of Angular Application.
+		-It removes angular JIT compiler from the dev package to make compact siae and uses AoT.
+		
+	
+	
+	
+		
+		
+	

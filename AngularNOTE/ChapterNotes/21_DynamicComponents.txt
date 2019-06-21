@@ -1,0 +1,61 @@
+Dynamic Components
+	Components can be loaed dynamically by ngIf or by Dynamic Component Loader
+	Angular Ref:
+	https://angular.io/guide/dynamic-component-loader
+	
+#Using *ngIf
+	Property binding approach:
+		In file: src\app\auth\auth.component.html.	
+		<app-alert [message]=error *ngIf="error"></app-alert>
+		In file: src\app\shared\alert\alert.component.ts
+		@Input() message: string;
+		
+		Here @Input is used to receive value from another component or HTML.
+		
+	
+	Event binding approach:
+		in file: src\app\shared\alert\alert.component.html
+		<div class="backdrop" (click)="onClose()"> and
+		<button class="btn btn-primary" (click)="onClose()">close</button>
+		In file: src\app\shared\alert\alert.component.ts
+		@Output() close = new EventEmitter<void>();
+		onClose() {
+			this.close.emit();
+		  }
+		in file: src\app\auth\auth.component.html
+		<app-alert [message]=error *ngIf="error" (close)="onHandleError()"></app-alert>
+		
+#Programatic/Dynamic Approach
+	In file: src\app\auth\auth.component.ts
+	Use ComponentFactoryResolver to get instance of a angular Component
+	
+	Directive to be used:
+		ViewContainerRef: This gives a pointer to the location where this directive is being used. Which helps to reconfigure or inject new attribute value to a directive programatically.
+	
+	<ng-template>: Directive provided by angular. It will not add anything new to DOM but sill accisible by angular. 
+	
+	@ViewChild: it takes a directive or its class as input to get the refence of the directive/selector.
+	
+	in file: src\app\auth\auth.component.ts
+		private showErrorAlert(message: string) {
+			// TO get a component instance in angular programatically
+			const alertCompFactory = this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
+			const hostViewContainerRef = this.alertHost.viewContainerRef;
+			hostViewContainerRef.clear();
+
+			const componentRef = hostViewContainerRef.createComponent(alertCompFactory);
+			componentRef.instance.message = message;    
+			this.closeSub = componentRef.instance.close.subscribe( ()=> {
+			  this.closeSub.unsubscribe();
+			  hostViewContainerRef.clear();
+			});
+		  }
+	
+	
+		
+		
+		
+	
+	
+	
+

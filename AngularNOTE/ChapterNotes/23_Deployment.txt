@@ -1,0 +1,49 @@
+Deployment
+	Build Command:
+		ng build --prod
+			1. compiles type-script code to java-script
+			2. compiles all templates to java-script instruction.
+			3. optimizes code and generates 'dist' folder.
+		
+	Environment variable configuration:
+		For Dev: src\environments\environment.ts
+		
+		For Production: src\environments\environment.prod.ts
+	
+		Global variable/values, API keys can be configured here to be used in application.
+		Like FireBase service Key can be stored here.
+		
+	Add required values to src\environments\environment.ts and it will automatically swaped to environment.prod.ts file while building application.		
+		export const environment = {
+		  production: false,
+		  firebaseAPIKey: 'AIzaSyB63LmjJ9bTcBV11qmUHRnzqA26gb1gXPc'
+		};
+		
+	In service class this configuration can be accessed as below:
+		import { environment } from '../../environments/environment';
+		access as: 
+		'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=' + environment.firebaseAPIKey,
+		
+Deploying or Hosting Angular Application:
+	Hosting on FireBase
+		https://firebase.google.com/docs/hosting
+		
+		Install the Firebase CLI
+			1. Install Node.js using one of the following options. Installing Node.js automatically installs npm.
+			2. Install the Firebase CLI using npm by running:
+				$npm install -g firebase-tools
+			3. Sign into Firebase using your Google account by running:
+				$firebase login
+			4. To test that authentication worked (and to list all of your Firebase projects), run the following command:
+				$firebase list
+			5. Connect your project with firebase using init command
+				$cd c:\RecipeBook
+				$firebase init
+				(choose approfriate options)
+			6. Deploy the application by below command which will give a hosted URL
+				$firebase deploy
+
+Server Routing vs Browser Routing
+	When deploying your Angular app, it's really important to make sure that your server (like S3) is configured to always serve the index.html file.
+	Here's why: https://academind.com/learn/angular/angular-q-a/#how-to-fix-broken-routes-after-deployment		
+	
