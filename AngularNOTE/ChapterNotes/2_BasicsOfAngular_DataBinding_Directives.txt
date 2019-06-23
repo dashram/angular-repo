@@ -60,16 +60,41 @@ Data Binding in Angular
 		4. For two-way data binding, we combine property+event binding#Two way binding = property binding + Event binding
 			<input type="text" class="form-control" [(ngModel)]="serverName">
 			
-Directives:
-	Build-in Directives:
-		1. *ngIf, *ngif-else
-		2. These directives will take an expression in "" to be evaluated as true or false
-			#Directives like *ngIf, 
-			<p *ngIf="serverCreated"> Server created! and server name is: {{serverName}} </p>
+Important: 
+	For events, you don't bind to onclick but only to click (=> (click)).
+	The MDN (Mozilla Developer Network) offers nice lists of all properties and events of the element you're interested in. 
+	Googling for YOUR_ELEMENT properties  or YOUR_ELEMENT events  should yield nice results.			
+			
+Directives: 
+	Directive Types:
+		1. Structural Directives (with *):    add or remove elements in DOM. eg: *ngIf, *ngFor		
+				a. *ngIf, *ngif-else
+				b. These directives will take an expression in "" to be evaluated as true or false
+					<!--ngIf 
+					   else condition used local reference/marker -->    
+					<p *ngIf="serverCreated; else noServer"> Status with ngIf: Server created!! </p>
+					<!--Local reference:  #noServer-->
+					<ng-template #noServer>
+						<p>No server created!!!</p>
+					</ng-template>
+				c. if expression is false, the component/element will not rended itself (not just hidden)
+		2. Attribute Directives (without *):  Unlike structural directive, they dont add or remove elements. 
+											  They only change the element they were placed on.
+											  eg: ngStyle, ngClass			
+		
+				#ngStyle for appling style
+				<p [ngStyle]="{backgroundColor: getColor()}" > {{ 'Server' }} with ID #{{ serverId }} is currently {{ getServerStatus() }} </p>
+				#ngClass for appling css-class
+				<p [ngStyle]="{backgroundColor: getColor()}" [ngClass]="{classOnline: serverStatus === 'online'}"> {{ 'Server' }} with ID #{{ serverId }} is currently {{ getServerStatus() }}
+				</p>
+	
+Built-in validators/directives:
+	 https://angular.io/api/forms/Validators
+	 https://angular.io/api?type=directive	
 
-			#Directive *ngif-else
-			<p *ngIf="serverCreated; else noServer"> Server created! and server name is: {{serverName}} </p>
-		3. if expression is false, the component/element will not rended itself (not just hidden)
+Extracting index from *ngFor
+	<app-server *ngFor="let srv of servers; let i = index"></app-server>
+	**Here index is a predefined keyword which gives current index value of *ngFor loop
 		
 		
 		

@@ -10,7 +10,7 @@ export class ServerListComponent implements OnInit {
   allowNewServer = false;
   serverCreationStatus = "No server was created.";
   serverName = '';
-  sercerCreated: boolean = false;
+  serverCreated: boolean = false;
   servers = ['TestSrv', 'ProdSrv'];
 
   constructor() {
@@ -25,7 +25,8 @@ export class ServerListComponent implements OnInit {
   onServerCreate(){
     //to log output on terminal of developer-tool
     console.log("### onServerCreate triggered on CLICK event...");
-    this.sercerCreated = true;
+    this.serverCreated = true;
+    //used js method to add new element to array
     this.servers.push(this.serverName);
     this.serverCreationStatus = "Server created successfully... Server Name is : " + this.serverName;
   }

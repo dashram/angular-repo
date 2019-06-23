@@ -3,29 +3,37 @@
         <label>Server Name: </label>
 
         <!--
-        //One-way data binding
+        //One-way Envent binding
+        //$event: is a reserved variable to pass event object
         <input type="text" class="form-control" (input)="onServerUpdate($event)">
         -->
 
-        <!--Two-way data binding using directive *ngModel-->
+        <!--Two-way data binding using directive *ngModel
+        1. it will trigger in, input event and set the value to propety of the component.
+        2. it also update input elemnt value on any value set value on serverName property
+        -->
         <input type="text" class="form-control" [(ngModel)]="serverName">
 
         <!--String interpolation-->
-        <p>Server to add is: {{serverName }}</p>
-        <!--Property binding: [disabled], Event binding: (click)-->
+        <p>Server to add is: {{ serverName }}</p>
+        <!--Property binding of button element using [] as: [disabled] , 
+            Click event of button binding using () as: (click)-->
         <button class="btn btn-primary" [disabled]="!allowNewServer" (click)="onServerCreate()" > Add Server </button>
     </div>
 
-    <!--String interpolation-->
-    <p> {{ serverCreationStatus }} </p>
+    <!-- Another property binding example: [innerText]-->
+    <div>Allow Add Server?: <p [innerText]="allowNewServer"></p></div>
+    <hr>
 
-    <!--ngIf with else condition by using local reference/marker-->
-    <p *ngIf="sercerCreated; else noServer"> Status with ngIf: Server created!! </p>
+    Server creation status: 
+    <!--ngIf with else condition by using local reference/marker-->    
+    <p *ngIf="serverCreated; else noServer"> Status with ngIf: Server created!! </p>
+    <!--Local reference:  #noServer-->
     <ng-template #noServer>
         <p>No server created!!!</p>
     </ng-template>
     <hr>
 
-    <!--Without component communication use *ngFor to loop over component-->
-    <app-server *ngFor="let srv of servers"></app-server>
+    <!--*ngFor to loop over component-->
+    <app-server *ngFor="let srv of servers; let i = index"></app-server>
 </div>

@@ -1,5 +1,9 @@
-<!--ngStyle directive expects a javascript object as key-value pair-->
-<!--ngClass directive points to a style-class defined in respective component with inline css or outside-->
+<!--Attibute Directive with property binding
+    ngStyle directive expects a javascript object as key-value pair
+-->
+<!--Attibute Directive with property binding
+    ngClass directive points to a style-class defined in respective component with inline css or outside
+-->
 <h4 [ngStyle]="{backgroundColor: getColor()}"
     [ngClass]="{online: serverStatus === 'online'}"> 
     Server with ID {{ serverId }}, status is {{ getServerStatus() }} 

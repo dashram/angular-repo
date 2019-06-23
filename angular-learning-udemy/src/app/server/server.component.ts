@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
   `]
 })
 export class ServerComponent implements OnInit {
-  serverId: number = 1001;
+  serverId: number = Math.round(Math.random() * 1000);
   serverStatus: string =  '';
 
   constructor() { 

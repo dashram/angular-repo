@@ -1,0 +1,6 @@
+
+
+Data Binding Example:
+	src\app\server\server-list\server-list.component.html
+	
+	
