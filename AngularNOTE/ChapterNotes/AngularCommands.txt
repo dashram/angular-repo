@@ -1,0 +1,47 @@
+
+Install npm
+	npm install -g npm@latest
+	
+Install angular/cli:
+	npm install -g @angular/cli
+	npm install -g @angular/cli@latest
+	
+Uninstall angula-cli and install specific cli version
+	npm uninstall -g @angular/cli
+	npm cache clean --force
+	npm install -g @angular/cli@6.0.0
+	
+Check version:
+	ng -v
+		(Angular CLI: 6.0.0, Node: 8.12.0)
+	npm --version
+		6.9.0
+	node --version
+		v8.12.0
+
+Create a new Project/app
+	ng new <project-app-name>
+	cd <project-app-name>
+	ng serve
+	
+Install bootstrap locally( as not using -g)
+	npm install --save bootstrap@latest
+	npm install --save bootstrap@3
+	
+#Create different components using cli command
+	Scaffold	Usage
+	Component	ng g component my-new-component	--skipTests true
+	Directive	ng g directive my-new-directive	--skipTests true
+	Pipe		ng g pipe my-new-pipe --skipTests true
+	Service		ng g service my-new-service --skipTests true
+	Class		ng g class my-new-class --skipTests true
+	Guard		ng g guard my-new-guard --skipTests true
+	Interface	ng g interface my-new-interface --skipTests true
+	Enum		ng g enum my-new-enum --skipTests true
+	Module		ng g module my-module --skipTests true
+	
+update and save in angular project
+	npm install --save-dev @angular/cli@latest
+	npm install --save-dev npm@latest 
+	ng update --all --force	
+	

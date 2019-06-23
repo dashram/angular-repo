@@ -1,38 +1,33 @@
 
-npm install -g npm@latest
-npm install -g @angular/cli@latest
-npm install --save bootstrap@3
-npm install
+Pre-requisite with SW setup:
+	npm install -g npm@latest
+	npm install -g @angular/cli@latest
+	npm install --save bootstrap@3
+	npm install --save bootstrap@latest
+	npm install
 
-Emmet: for auto complete feature and shotcuts
-https://docs.emmet.io/cheat-sheet/
+Emmet: for auto complete feature(mainly for html) and shotcuts
+	https://docs.emmet.io/cheat-sheet/
 
-these are all built-in validators
- https://angular.io/api/forms/Validators
- https://angular.io/api?type=directive
-
-Additionally, when using a project created with Angular CLI 6+ (check via ng -v ), 
-you'll have an angular.json  file instead of an .angular-cli.json  file. 
-In that file, you still need to add Bootstrap to the styles[]  array as shown in the next video, 
-but the path should be 
-node_modules/bootstrap/dist/css/bootstrap.min.css , NOT ../node_modules/bootstrap/dist/css/bootstrap.min.css . 
-The leading ../  must not be included.
-
-#Create New Project
-ng new RecipeBookProject
-#Install bootstrap
-npm install --save bootstrap@3
-#Add below bootstrap file in angular.json
-node_modules/bootstrap/dist/css/bootstrap.min.css
-#Start application
-ng serve
+#Add bootstrap css on file: angular.json
+	"styles": [
+	  "node_modules/bootstrap/dist/css/bootstrap.min.css",
+	  "src/styles.css"
+	]
+RecipeBookProject commands
+	#Create New Project
+		ng new RecipeBookProject
+	#Install bootstrap
+		npm install --save bootstrap@3
+	#Add below bootstrap file in angular.json
+		node_modules/bootstrap/dist/css/bootstrap.min.css
+	#Start application
+		ng serve
 
 #Create component using Angular CLI
 ng g directive shared/dropdown --skipTests true
 ng g c shared/loading-spinner --skipTests true
 ng g directive shared/placeholder/placeholder --skipTests true
-
-
 ng g c header --skipTests true
 ng g c recipes --skipTests true
 ng g c recipes/recipe-list --skipTests true

@@ -1,0 +1,7 @@
+Java Script Functions:
+	setTimeout( targetOperation, timeOutValue)
+	setTimeout( () => {
+		this.serverActive = false;
+	}, 2000);
+	
+	

@@ -1,0 +1,76 @@
+How Angular App BootStraps:
+	1. index.html gets loaded first which renders <app-root> selector
+	2. <app-root> selector is associate to app.component.ts Component.
+	3. main.ts is the first code which gets executed, which bootstraps AppModule.
+		platformBrowserDynamic().bootstrapModule(AppModule)
+	
+Components
+	create a component with @Component decorator imported from (import { Component, OnInit } from '@angular/core';)
+		@Component({
+		  selector: 'app-recipe-detail',
+		  templateUrl: './recipe-detail.component.html',
+		  styleUrls: ['./recipe-detail.component.css']
+		})
+		export class RecipeDetailComponent implements OnInit
+		
+	A component takes 3 inputs:
+		selector: 
+		template | templateUrl:
+		styles | styleUrls
+		
+	selector:
+		selector can be used as html element: 
+			selector: 'app-server'
+			in HTML: <app-server></app-server>
+		selector can be used as attribute by enclosing in []:
+			selector: '[app-server]'
+			in HTML: <div app-server>
+		selector can be used as class by starting with .:
+			selector: '.app-server'
+			in HTML: <div class="app-server">
+
+Data Binding in Angular
+	String Interpolation: {{ }}
+		1. In .ts file, declare variable/property in component class and access the value of the varibale by the reference in HTML as:
+				{{ variableName }}  or {{ getServerName() }}
+		2. The referenced property/method should return string or somthing can be converted to string.
+		3. Example:
+			<p>{{ 'Server' }} with ID #{{ serverId }} is currently {{ getServerStatus() }}</p>
+	
+	Property Binding:
+		1. property/attibute of any html element / directive / components can be binded using: []
+		2. Example
+			#property binding, that binding property with enclosed square bracket. 
+			#Here disabled is an attribute/property of button.
+			<button class="btn btn-primary" [disabled]="!allowNewServer"> Add Server </button>
+		
+	Event Binding:
+		1. All the java-script events like click, ... can be binded with event binding using: ()
+		2. You can basically bind to all Properties and Events - a good idea is to console.log()  the element you're interested in to see which properties and events it offers.
+		3. Example:
+			<input type="text" class="form-control" (input)="onServerUpdate($event)">
+			<button class="btn btn-primary" (click)="onAddServer(#event)"> Add Server </button>
+			
+	Two-Way-Binding:
+		1. For Two-Way-Binding to work, you need to enable: ngModel  directive. 
+		2. This is done by adding the FormsModule  to the imports[]  array in the AppModule.
+		3. You then also need to add the import from @angular/forms  in the app.module.ts file:
+			import { FormsModule } from '@angular/forms'; 
+		
+		4. For two-way data binding, we combine property+event binding#Two way binding = property binding + Event binding
+			<input type="text" class="form-control" [(ngModel)]="serverName">
+			
+Directives:
+	Build-in Directives:
+		1. *ngIf, *ngif-else
+		2. These directives will take an expression in "" to be evaluated as true or false
+			#Directives like *ngIf, 
+			<p *ngIf="serverCreated"> Server created! and server name is: {{serverName}} </p>
+
+			#Directive *ngif-else
+			<p *ngIf="serverCreated; else noServer"> Server created! and server name is: {{serverName}} </p>
+		3. if expression is false, the component/element will not rended itself (not just hidden)
+		
+		
+		
+		

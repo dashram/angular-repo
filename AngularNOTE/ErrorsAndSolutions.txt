@@ -1,0 +1,7 @@
+
+ERROR in node_modules/rxjs/internal/types.d.ts(81,44): error TS1005: ';' expected.
+	https://stackoverflow.com/questions/54529027/node-modules-rxjs-internal-types-d-ts81-44-error-ts1005-expected-error-a
+	Step 1 : Go to package.json and modify "rxjs": "^6.0.0" to "rxjs": "6.0.0"
+	Step 2 Run npm update in your project.
+		There is no need to change the typescript version. (Mine: "typescript": "~2.7.2")
+	Edit: If you are using rxjs-compat then you also need to do following in order to fixed the issue. change the rxjs-compat version from "rxjs-compat": "^6.2.2" to "rxjs-compat": "6.2.2"
