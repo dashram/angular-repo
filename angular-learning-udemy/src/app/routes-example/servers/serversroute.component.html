@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-4">
+    <div class="list-group">
+      <a
+        [routerLink]="['/servers', server.id]"
+        [queryParams]="{allowEdit: '1'}"
+        fragment="loading"
+        class="list-group-item"
+        *ngFor="let server of servers">
+        {{ server.name }}
+      </a>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-4">
+
+    <!--Relative path used as we are already in /server link/component-->
+    <a routerLink="/servers">Reload Server Page (AbsolutePath)</a>
+    <!--Absolute path will not work as it will became /server/server 
+    <a routerLink="servers">Reload Server Page</a>-->
+    <button class="btn btn-primary" (click)="onReload()">Reload Server Page (RelativePath)</button>
+
+    <app-edit-serverroute></app-edit-serverroute>
+    <hr>
+    <!--<app-serverroute></app-serverroute>-->
+  </div>
+</div>
+

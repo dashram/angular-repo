@@ -1,0 +1,128 @@
+
+
+Definding Routers (url paths) in
+	src\app\app.module.ts or src\app\app-routing.module.ts
+		const appRoutes: Routes = [
+			{ path: '', component: HomeComponent},
+			{ path: 'users', component: UsersComponent},
+			{ path: 'servers', component: UsersComponent}
+		]
+
+		@NgModule({
+			imports:[
+				RouterModule.forRoot(appRoutes)
+			],
+			exports:[
+				RouterModule
+			]
+		})
+		export class AppRoutingModule {    
+		}
+		
+Place the in-build element where you want to render the routed component/url.
+	in src\app\routes-example\routes.component.html
+		<div class="row">
+		  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+			<router-outlet></router-outlet>
+		  </div>
+		</div> 
+		
+URLS can be used as:
+	http://localhost:4200/			: Home
+	http://localhost:4200/users		: Users
+	http://localhost:4200/servers	: Servers
+	
+To load the pages on click of links or navigation tabs using special  attibute: routerLink
+	in src\app\routes-example\routes.component.html
+		<ul class="nav nav-tabs">
+          <li role="presentation" class="active"><a routerLink="/">Home</a></li>
+          <li role="presentation"><a routerLink="/servers">Servers</a></li>
+          <li role="presentation"><a [routerLink]="['/users']">Users</a></li>
+        </ul>
+		
+Relative vs Absolute path:
+	Absolute path: routerLink="/servers"
+	Relative path: routerLink="servers"	
+	***If Absolute path given, routerLink appends current path with previously navigated path.
+	
+	<!--Relative path used as we are already in /server link/component-->
+    <a routerLink="/servers">Reload Server Page</a>
+    <!--Absolute path will not work as it will became /server/server -->
+    <a routerLink="servers">Reload Server Page</a>
+	<!--Go back to previous level rouse as below -->
+    <a routerLink="../../servers">Reload Server Page</a>
+	
+To make highlight the currently selected link use routerLinkActive and on default router use routerLinkActiveOptions as well:
+	<ul class="nav nav-tabs">
+	  <li role="presentation" 
+		  routerLinkActive="active"
+		  [routerLinkActiveOptions]="{exact: true}"><a routerLink="/">Home</a></li>
+	  <li role="presentation" 
+		  routerLinkActive="active"><a routerLink="/servers">Servers</a></li>
+	  <li role="presentation" 
+		  routerLinkActive="active"><a [routerLink]="['/users']">Users</a></li>
+	</ul>
+	
+Load routers programatically:
+	src\app\routes-example\home\home.component.ts
+		<button class="btn btn-primary" (click)="onLoadServers()">Load Servers</button>
+	src\app\routes-example\home\home.component.ts
+		constructor(private router: Router) { }
+		onLoadServers() {
+			//Absolute path
+			this.router.navigate(['/servers'])
+		  }
+		  
+Passing Parameters to Routes		  
+	const appRoutes: Routes = [
+		....
+		{ path: 'users/:id', component: UserComponent},
+	]
+	
+Fetch Route parameters from Router links:	 
+	src\app\routes-example\users\user\user.component.ts
+	//ActivatedRoute will give access to the ID passed in the URL => Selected User
+	paramsSubscription: Subscription
+	constructor(private activeRoute: ActivatedRoute) { }
+	ngOnInit() {
+		//this implementation only works on first load of commont
+		this.user = {
+		  id: this.activeRoute.snapshot.params['id'],
+		  name: this.activeRoute.snapshot.params['name']
+		}
+		//this is for subsequent load with url params change or reload when you are in the component already
+		//but sill can be followed to best approach: Observable approach to update on any change
+		this.paramsSubscription = this.activeRoute.params.subscribe(
+		  (params: Params ) => {
+			this.user.id = params['id'];
+			this.user.name = params['name'];
+		  }
+		)
+	  }
+	  
+	  //unscbscribe the subscription mainly for custom subscription
+	  //for angular's inbuild subscription, usually gets unscbscribed by angular)
+	  ngOnDestroy() {
+		this.paramsSubscription.unsubscribe();
+	  }
+	  
+Passing Query Parameters and Fragments:
+	for generating a url like: http://localhost:4200/servers/5/edit?allowEdit=1#loading
+	queryParam: ?allowEdit=1
+	fragment: #loading
+	
+	src\app\routes-example\servers\serversroute.component.html
+		<a
+        [routerLink]="['/servers', 5, 'edit']"
+        [queryParams]="{allowEdit: '1'}"
+        fragment="loading"
+        class="list-group-item"
+        *ngFor="let server of servers">
+		
+Passing Query Parameters and Fragments programatically:
+		src\app\routes-example\home\home.component.html
+			onLoadServers(id: number) {
+				this.router.navigate(['/servers', id, 'edit'], {queryParams: {allowEdit: '1'}, fragment: 'loading'})
+			}
+		
+	

@@ -22,6 +22,17 @@ import { AccountComponent } from './services/account/account.component';
 import { NewAccountComponent } from './services/new-account/new-account.component';
 import { AccountService } from './services/account.service';
 
+//Routes Modules
+import { RoutesExampleComponent } from './routes-example/routes.component';
+import { UserComponent } from './routes-example/users/user/user.component';
+import { UsersComponent } from './routes-example/users/users.component';
+import { ServerRouteComponent } from './routes-example/servers/server/serverroute.component';
+import { ServersRouteComponent } from './routes-example/servers/serversroute.component';
+import { ServersRouteService } from './routes-example/servers/serversroute.service';
+import { HomeComponent } from './routes-example/home/home.component';
+import { EditServerRouteComponent } from './routes-example/servers/edit-server/edit-serverroute.component';
+import { AppRoutingModule } from './app-routing.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,16 +52,27 @@ import { AccountService } from './services/account.service';
     UnlessDirective,
     ShortenPipe,
     FilterPipe,
+    //Router-Example Components
+    RoutesExampleComponent,
+    UserComponent,
+    UsersComponent,
+    ServerRouteComponent,
+    ServersRouteComponent,
+    EditServerRouteComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    ReactiveFormsModule     
+    ReactiveFormsModule,
+    AppRoutingModule 
   ],
   //Services to be included to access thru applicaiton or use Injectable annotation
   providers: [
-    AccountService
+    AccountService,
+    //Router-Example services
+    ServersRouteService
   ],
   bootstrap: [AppComponent]
 })
