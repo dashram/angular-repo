@@ -30,6 +30,7 @@ export class ServerElementComponent implements  OnInit,
                                                 OnDestroy {
 
   /**
+   * Input enables Parent to Child component property binding
    * Exposing perperty to outside to any parent component hosting the current component
    * srvElement will act as alias for element outside of the component
    */

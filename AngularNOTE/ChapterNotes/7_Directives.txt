@@ -1,0 +1,101 @@
+
+Directives are for Two types
+	1. Structural Directives
+		Changes the structure of the DOM by adding or removing the element.	
+		**Angular dont allow more than one structural directive on a single element
+		eg: *ngIf, *ngFor, *ngSwitch
+	2. Attibute Directives
+		Only changes style ar attibute of the Element, but never affects DOM structure.
+		eg: ngClass, ngStyle
+		
+	Example:
+		In file src\app\highlight-directive\directive.component.html:
+		<div *ngIf="onlyOdd">
+			<!--ngClass and ngStyle directive usage-->
+			<li class="list-group-item" 
+				[ngClass] = "{ odd: odd % 2 !== 0 }"
+				[ngStyle] = "{ backgroundColor: odd % 2 !== 0 ? 'yellow' : 'transparent'}"
+				*ngFor="let odd of oddNumbers ">
+				{{ odd }}
+			</li>
+		</div>
+		
+		
+Custom Attibute Directive:
+	1. To declair a directive, annotate it with @Directive
+	2. It taken unique selector for the application.
+		@Directive({
+			selector: '[appHighLightDirective]'
+		})
+	3. It takes a constuctor with ElementRef
+		export class HighLightDirective implements OnInit {
+			constructor( private elementRef: ElementRef) {}
+			or
+			constructor(private elRef: ElementRef, private renderer: Renderer2){}
+			...
+			ngOnInit() {
+				this.elementRef.nativeElement.style.backgroundColor = 'green';
+				this.elementRef.nativeElement.style.color = 'white';
+			}
+			//HostListener to listen Host event like: mouseenter, mouseleave, 
+			@HostListener('mouseenter') mouseover(eventData: Event){
+				this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'blue');
+				this.renderer.setStyle(this.elRef.nativeElement, 'color', 'white');
+			}
+
+			@HostListener('mouseleave') mouseleave(eventData: Event){
+				this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'transparent');
+				this.renderer.setStyle(this.elRef.nativeElement, 'color', 'black');
+			}
+		}
+		
+Custom Structural Directive:		
+	1. Define a directive as: src\app\highlight-directive\unless.directive.ts
+		@Directive({
+			selector: '[appUnless]'
+		})
+		export class UnlessDirective {
+			//This is a setter method but still its a property: unless
+			@Input() set appUnless(condition: boolean) {
+				if(!condition) {
+					this.vcRef.createEmbeddedView(this.templateRef);
+				} else {
+					this.vcRef.clear();
+				}
+			}
+
+			constructor(private templateRef: TemplateRef<any>, private vcRef: ViewContainerRef) {}
+		}
+		
+	2. Use the directive on any element as: src\app\highlight-directive\directive.component.html
+		<div *appUnless="onlyOdd">
+			<li class="list-group-item" *ngFor="let even of evenNumbers">
+				{{ even }}
+			</li>
+		</div>
+		
+ngSwitch usage:
+	in File: src\app\highlight-directive\directive.component.html
+	<!--ngSwitch example-->
+	<h3>ngSwitch example</h3>
+	<div [ngSwitch]="value">
+		<p *ngSwitchCase="5">Value is 5</p>
+		<p *ngSwitchCase="10">Value is 10</p>
+		<p *ngSwitchCase="100">Value is 100</p>
+		<p *ngSwitchDefault>Value is Default</p>
+	</div>
+	
+Closing the Dropdown From Anywhere
+	If you want that a dropdown can also be closed by a click anywhere outside (which also means that a click on one dropdown closes any other one, btw.), 
+	replace the code of dropdown.directive.ts by this one (placing the listener not on the dropdown, but on the document):
+		import {Directive, ElementRef, HostBinding, HostListener} from '@angular/core'; 
+		@Directive({
+		  selector: '[appDropdown]'
+		})
+		export class DropdownDirective {
+		  @HostBinding('class.open') isOpen = false;
+		  @HostListener('document:click', ['$event']) toggleOpen(event: Event) {
+			this.isOpen = this.elRef.nativeElement.contains(event.target) ? !this.isOpen : false;
+		  }
+		  constructor(private elRef: ElementRef) {}
+		}

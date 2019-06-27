@@ -1,4 +1,6 @@
 <div class="container">
+  
+  <!--cockpit component-->
   <app-cockpit 
   (serverCreated)="onServerAdded($event)"
   (bpCreated)="onBluprintAdded($event)"
@@ -7,13 +9,13 @@
   <hr>
   <div class="row">
     <div class="col-xs-12">
+      <!--Component Data Binding: binded srvElement(in server-element-component) with serverElement(of databind-component) -->
       <app-server-element 
         *ngFor="let serverElement of serverElements" 
         [srvElement]="serverElement"></app-server-element>
     </div>
   </div>
 
-  <p appHighLightDirective> Style me with HighLight Directive</p>
-  <p betterHighLightDirective> Style me with HighLight Directive</p>
+  
 </div>
   

@@ -4,4 +4,12 @@ Java Script Functions:
 		this.serverActive = false;
 	}, 2000);
 	
+	recipes = [];
+	//instead of returning direct reference of recipes(array), return a copy of recipes
+    //in this way we will check editing of recipes(array) elements
+    return this.recipes.slice();	
+	
+	//add all elements to an array es6 feature the spread-of-operator from array of elements to list of elements
+	this.ingredients.push(...ingredients);
+	
 	

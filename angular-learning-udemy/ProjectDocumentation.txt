@@ -1,6 +1,31 @@
 
 
 Data Binding Example:
+	(String interpolation, Property Binding, Event Binding, Local Reference, Structural Directives, Attribute Directives)
 	src\app\server\server-list\server-list.component.html
+	src\app\server\server-list\server-list.component.ts
+	src\app\app.component.html
+	src\app\server\server.component.ts
+	
+Component Property/Event Binding:
+	(Component Property Binding(Parent to Child), Component Event Binding(Child to Parent), Local-Reference, @ViewChild, ng-content)
+	src\app\databind\databind.component.html
+	src\app\databind\databind.component.ts
+	src\app\databind\server-element\server-element.component.html
+	src\app\databind\server-element\server-element.component.ts
+	src\app\databind\cockpit\cockpit.component.html
+	src\app\databind\cockpit\cockpit.component.ts
+	
+Life-Cycle Hooks:
+	src\app\databind\server-element\server-element.component.ts
+	
+Directives: Stuctural Directives, Attribute Directives, Custom Directives
+	Custom Attribute Directives:
+		src\app\highlight-directive\better-highlight.directive.ts
+		src\app\highlight-directive\highlight.directive.ts
+	Custom Structural Directives:
+		src\app\highlight-directive\unless.directive.ts
+		
+
 	
 	

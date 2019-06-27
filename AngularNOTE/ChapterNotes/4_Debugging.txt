@@ -1,0 +1,11 @@
+Error Messages:
+
+	Developers Tool -> Console
+	Debugging code in the Browser using SourceMaps
+
+	Using augury:
+		Angular Augury can be installed and added to Google Crome.
+		It shows Angular Components, component tree and there eleemnts.
+		To access:
+			Developers Tool -> Augury
+		

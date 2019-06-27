@@ -6,14 +6,16 @@ Pre-requisite with SW setup:
 	npm install --save bootstrap@latest
 	npm install
 
-Emmet: for auto complete feature(mainly for html) and shotcuts
-	https://docs.emmet.io/cheat-sheet/
-
 #Add bootstrap css on file: angular.json
 	"styles": [
 	  "node_modules/bootstrap/dist/css/bootstrap.min.css",
 	  "src/styles.css"
 	]
+	when using a project created with Angular CLI 6+ (check via ng -v ), you'll have an angular.json  file instead of an .angular-cli.json  file. 
+	In that file, you still need to add Bootstrap to the styles[]  array as shown in the next video, 
+	but the path should be node_modules/bootstrap/dist/css/bootstrap.min.css , NOT ../node_modules/bootstrap/dist/css/bootstrap.min.css . 
+	The leading ../  must not be included.
+	
 RecipeBookProject commands
 	#Create New Project
 		ng new RecipeBookProject
@@ -23,28 +25,34 @@ RecipeBookProject commands
 		node_modules/bootstrap/dist/css/bootstrap.min.css
 	#Start application
 		ng serve
+		ng build --prod
+		
+Emmet: for auto complete feature(mainly for html) and shotcuts
+	https://docs.emmet.io/cheat-sheet/		
 
 #Create component using Angular CLI
-ng g directive shared/dropdown --skipTests true
-ng g c shared/loading-spinner --skipTests true
-ng g directive shared/placeholder/placeholder --skipTests true
-ng g c header --skipTests true
-ng g c recipes --skipTests true
-ng g c recipes/recipe-list --skipTests true
-ng g c recipes/recipe-detail --skipTests true
-ng g c recipes/recipe-list/recipe-item --skipTests true
-ng g c recipes/recipe-start --skipTests true
-ng g c recipes/recipe-edit --skipTests true
+	ng g c header --skipTests true
+	
+	ng g d shared/dropdown --skipTests true
+	ng g d shared/placeholder/placeholder --skipTests true	
+	
+	ng g c shared/loading-spinner --skipTests true
+	ng g c shared/alert --skipTests true
+	
+	ng g c recipes --skipTests true
+	ng g c recipes/recipe-list --skipTests true
+	ng g c recipes/recipe-detail --skipTests true
+	ng g c recipes/recipe-list/recipe-item --skipTests true
+	ng g c recipes/recipe-start --skipTests true
+	ng g c recipes/recipe-edit --skipTests true	
 
-ng g c shared/alert --skipTests true
+	ng g c shopping-list --skipTests true
+	ng g c shopping-list/shopping-edit --skipTests true
 
-ng g c shopping-list --skipTests true
-ng g c shopping-list/shopping-edit --skipTests true
+	ng g c auth/auth --skipTests true
 
-ng g c auth/auth --skipTests true
-
-ng g service shared/data-storage --skipTests true		#create a service
-ng g service recipes/recipes-resolver --skipTests true	#create a service
+	ng g service shared/data-storage --skipTests true		#create a service
+	ng g service recipes/recipes-resolver --skipTests true	#create a service
 
 #To use old rxjs imports, below package need to be installed
 npm install --save rxjs-compat

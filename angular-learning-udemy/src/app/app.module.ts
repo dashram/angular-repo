@@ -15,6 +15,12 @@ import { FormTemplateDrivenComponent } from './form-template-driven/form-templat
 import { FormReactiveComponent } from './form-reactive/form-reactive.component';
 import { ShortenPipe } from './pipes/shorten.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
+import { DirectiveComponent } from './highlight-directive/directive.component';
+import { UnlessDirective } from './highlight-directive/unless.directive';
+import { ServiceComponent } from './services/service.component';
+import { AccountComponent } from './services/account/account.component';
+import { NewAccountComponent } from './services/new-account/new-account.component';
+import { AccountService } from './services/account.service';
 
 @NgModule({
   declarations: [
@@ -28,6 +34,11 @@ import { FilterPipe } from './pipes/filter.pipe';
     BetterHighLightDirective,
     FormTemplateDrivenComponent,
     FormReactiveComponent,
+    DirectiveComponent,
+    ServiceComponent,
+    AccountComponent,
+    NewAccountComponent,
+    UnlessDirective,
     ShortenPipe,
     FilterPipe,
   ],
@@ -37,7 +48,10 @@ import { FilterPipe } from './pipes/filter.pipe';
     HttpModule,
     ReactiveFormsModule     
   ],
-  providers: [],
+  //Services to be included to access thru applicaiton or use Injectable annotation
+  providers: [
+    AccountService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

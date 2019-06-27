@@ -1,0 +1,93 @@
+	AppModule
+		Same instance of Service is available Application-wide
+	
+	AppComponent:
+		Same instance of Service is available for all Components( but not for other Services)
+		Service Instances dont propagate up if defiened as provider in Component level
+		
+	Any other Component:
+		Same instace of Service is available for the Component and all its child component
+		
+		
+Services can be injected to component in 3 ways:
+		Process-1: In app.module
+			in src\app\app.module.ts
+			@NgModule({
+			  declarations: [
+			  ...
+			  ],
+			  imports: [
+				...     
+			  ],
+			  //Services to be included to access thru applicaiton or use Injectable annotation
+			  providers: [
+				AccountService
+			  ],
+			  bootstrap: [AppComponent]
+			})
+			export class AppModule { }
+			
+		Process-2: In Component level:
+			in src\app\services\account\account.component.ts
+			@Component({
+			  selector: 'app-account',
+			  templateUrl: './account.component.html',
+			  styleUrls: ['./account.component.css'],
+			  providers: [LoggingService]
+			})
+			export class AccountComponent {
+				...
+			}
+		Process-3: Using Injector annotation:
+			@Injectable({
+				provided: 'root'
+			})
+			export class AccountService {
+			}
+		
+Injecting Service in another Service:
+	@Injectable: include it where you want to inject the server not on the service which you want to inject.
+
+Component communication thru Service Using EventEmmiter:
+	src\app\services\account.service.ts
+		statusUpdated = new EventEmitter<string>();
+		
+	src\app\services\account\account.component.ts
+		onSetTo(status: string) {
+			this.accountService.updateStatus(this.id, status);
+			this.loggingService.logStatusChange(status);
+			this.accountService.statusUpdated.emit(status);
+		  }
+		  
+	src\app\services\new-account\new-account.component.ts
+		constructor(
+			private loggingService: LoggingService, 
+			private accountService: AccountService
+		  ){ 
+			this.accountService.statusUpdated.subscribe(
+			  (status: string) => alert('New Status: '+ status)
+			)
+		  }
+		  
+Services in Angular 6+
+	If you're using Angular 6+ (check your package.json  to find out), you can provide application-wide services in a different way.
+	Instead of adding a service class to the providers[]  array in AppModule , you can set the following config in @Injectable() :
+
+		@Injectable({providedIn: 'root'})
+		export class MyService { ... }
+	This is exactly the same as:
+
+		export class MyService { ... }
+		and
+
+		import { MyService } from './path/to/my.service';
+		 
+		@NgModule({
+			...
+			providers: [MyService]
+		})
+		export class AppModule { ... }
+	Using this new syntax is completely optional, the traditional syntax (using providers[] ) will still work. 
+	The "new syntax" does offer one advantage though: Services can be loaded lazily by Angular (behind the scenes) 
+	and redundant code can be removed automatically. This can lead to a better performance and loading speed - 
+	though this really only kicks in for bigger services and apps in general.		  
