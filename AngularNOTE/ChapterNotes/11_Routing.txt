@@ -4,17 +4,23 @@ Definding Routers (url paths) in
 	src\app\app.module.ts or src\app\app-routing.module.ts
 		const appRoutes: Routes = [
 			{ path: '', component: HomeComponent},
-			{ path: 'users', component: UsersComponent},
-			{ path: 'servers', component: UsersComponent}
+			{ path: 'users', component: UsersComponent, children: [
+				//Child routes of users
+				{ path: ':id/:name', component: UserComponent},
+			]},    
+			{ path: 'servers', component: ServersRouteComponent, children: [
+				//servers will get appended to below paths automatically from patent router
+				{ path: ':id', component: ServerRouteComponent},
+				{ path: ':id/edit', component: EditServerRouteComponent},
+			]},
+			{ path: 'not-found', component: PageNotFoundComponent},
+			//catch for all routes not covered in defined paths in application
+			{ path: '**', redirectTo: '/not-found'},    
 		]
 
 		@NgModule({
-			imports:[
-				RouterModule.forRoot(appRoutes)
-			],
-			exports:[
-				RouterModule
-			]
+			imports:[ RouterModule.forRoot(appRoutes) ],
+			exports:[ RouterModule ]
 		})
 		export class AppRoutingModule {    
 		}
@@ -124,5 +130,166 @@ Passing Query Parameters and Fragments programatically:
 			onLoadServers(id: number) {
 				this.router.navigate(['/servers', id, 'edit'], {queryParams: {allowEdit: '1'}, fragment: 'loading'})
 			}
+Retrieving queryParams and fragment:
+	src\app\routes-example\servers\edit-server\edit-serverroute.component.ts
+		this.activateRoute.queryParams.subscribe();
+		this.activateRoute.fragment.subscribe();
 		
+Child (Nested) Routes		:
+	in src\app\app-routing.module.ts
+		{ path: 'users', component: UsersComponent, children: [
+			//Child routes of users
+			{ path: ':id/:name', component: UserComponent},
+		]},    
+		{ path: 'servers', component: ServersRouteComponent, children: [
+			//servers will get appended to below paths automatically from patent router
+			{ path: ':id', component: ServerRouteComponent},
+			{ path: ':id/edit', component: EditServerRouteComponent},
+		]}
+		
+	in src\app\routes-example\servers\serversroute.component.html and src\app\routes-example\users\users.component.html
+		<router-outlet></router-outlet>
+		
+Configuring the Handling of Query Parameters and retaining them on further navigation (using queryParamsHandling)
+	src\app\routes-example\servers\server\serverroute.component.ts
+		onEdit() {
+			//relative path used wrt "servers" path //on click of Edit button, queryParams usually gets lost
+			//To preserve QueryParams, queryParamsHandling used
+			this.router.navigate(['edit'], {relativeTo: this.activateRoute, queryParamsHandling: 'preserve'});
+		  }
+		  
+Redirecting and Wildcard Routes	for unmatched paths/URLs:
+	in src\app\app-routing.module.ts
+		{ path: 'not-found', component: PageNotFoundComponent},
+		//catch for all routes not covered in defined paths in application and redirectTo "/not-found" path
+		{ path: '**', redirectTo: '/not-found'},
+		
+	Important: Redirection Path Matching
+		In our example, we didn't encounter any issues when we tried to redirect the user. But that's not always the case when adding redirections.
+		By default, Angular matches paths by prefix. That means, that the following route will match both /recipes  and just / 
+		{ path: '', redirectTo: '/somewhere-else' } 
+
+		Actually, Angular will give you an error here, because that's a common gotcha: This route will now ALWAYS redirect you! Why?
+		Since the default matching strategy is "prefix" , Angular checks if the path you entered in the URL does start with the path specified in the route. 
+		Of course every path starts with ''  (Important: That's no whitespace, it's simply "nothing").
+
+		To fix this behavior, you need to change the matching strategy to "full" :
+		{ path: '', redirectTo: '/somewhere-else', pathMatch: 'full' } 
+		Now, you only get redirected, if the full path is ''  (so only if you got NO other content in your path in this example).
+		
+		
+Protecting Raoutes/Child Routes (Nested) Routes with canActivate/canActivateChild:
+	src\app\auth-guard-service.ts
+		export class AuthGuard implements CanActivate, CanActivateChild {
+			constructor(private authService: AuthService,  private router: Router){}
+
+			canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean{
+				return this.authService.isAuthenticated().then(
+					(authenticated: boolean) => {
+						if(authenticated) {
+							return true;
+						} else {
+							this.router.navigate(['/']);
+						}
+					}
+				)
+			}
+			canActivateChild(route: ActivatedRouteSnapshot, 
+							state: RouterStateSnapshot): Observable<boolean> 
+														| Promise<boolean> 
+														| boolean{
+				return this.canActivate(route, state);
+			}
+		}
+	src\app\auth.service.ts
+	src\app\app-routing.module.ts
+		{ path: 'servers', 
+			//canActivate: [AuthGuard],
+			//Guard to apply only on child routes
+			canActivateChild: [AuthGuard], component: ServersRouteComponent, children: [
+			//servers will get appended to below paths automatically from patent router
+			{ path: ':id', component: ServerRouteComponent},
+			{ path: ':id/edit', component: EditServerRouteComponent},
+		]},
+
+Controlling Navigation with canDeactivate		
+	This feature is used to safeguard filled page to retain its values on by-mistake click on other component or link.
+		src\app\app-routing.module.ts
+			{ path: ':id/edit', component: EditServerRouteComponent, canDeactivate: [CanDeactivateGuard]},
+			
+		src\app\routes-example\servers\edit-server\can-deactivate-guard.service.ts
+			export interface CanDeactivateComponent {
+				canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean;
+			}
+
+			export class CanDeactivateGuard implements CanDeactivate<CanDeactivateComponent> {
+				canDeactivate(component: CanDeactivateComponent,
+							  currentRoute: ActivatedRouteSnapshot,
+							  currentState: RouterStateSnapshot,
+							  nextState?: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+					
+					return component.canDeactivate();
+				}
+			}
+		
+		src\app\routes-example\servers\edit-server\edit-serverroute.component.ts
+			export class EditServerRouteComponent implements OnInit, CanDeactivateComponent {
+				....
+				canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+					if( !this.allowEdit) {
+					  return true;
+					} 
+					if( (this.serverName !== this.server.name || this.serverStatus !== this.server.status) && !this.changesSaved ) {
+					  return confirm('Do you want to discard the changes?');
+					} else {
+					  return true;
+					}
+				  }
+				
+			}
+			
+Passing Static Data to a Route:
+	src\app\app-routing.module.ts
+		{ path: 'not-found', component: ErrorPageComponent, data: {message: 'Page not found'}},
+	src\app\routes-example\error-page\error-page.component.ts
+		ngOnInit() {
+			//message property set on app-routing.module.ts router
+			this.errorMessage = this.activeRoute.snapshot.data['message'];
+
+			//for any change in data
+			this.activeRoute.data.subscribe(
+			  (data: Data) => {
+				this.errorMessage = data['message'];
+			  }
+			)
+		  }
+		  
+150. Resolving Dynamic Data with the resolve Guard		 
+	in src\app\app-routing.module.ts
+		{ path: ':id', component: ServerRouteComponent, resolve: {serverResolverObj: ServerResolver}},
+	in the above code, resolver added to load the data in advance, which stores the returned data from the ServerResolver in "serverResolverObj" (key-part) object
+	Here "serverResolverObj" is just a name and any name can be used be used 
+	
+	Create a resolver to load data in advance, mainly used to handle asyncronous data
+	in file: src\app\routes-example\servers\server\server.resolver.service.ts
+		@Injectable()
+		export class ServerResolver implements Resolve<Server>{
+			constructor(private serverService: ServersRouteService){}
+
+			//This resolver helps to load data in advance.
+			resolve(activeRouter: ActivatedRouteSnapshot, 
+					state: RouterStateSnapshot): Observable<Server> | Promise<Server> | Server {
+				return this.serverService.getServer(+activeRouter.params['id']);
+			}
+		}
+		
+(Not normally used) Understanding Location Strategies for server which do not support normal url:
+	To enable old Hash techinique, enable the feature by including "{useHash: true ]"
+	in file: src\app\app-routing.module.ts
+	@NgModule({
+		imports:[ RouterModule.forRoot(appRoutes), {useHash: true ],
+		exports:[ RouterModule ]
+	})
+	
+			
 	

@@ -32,6 +32,12 @@ import { ServersRouteService } from './routes-example/servers/serversroute.servi
 import { HomeComponent } from './routes-example/home/home.component';
 import { EditServerRouteComponent } from './routes-example/servers/edit-server/edit-serverroute.component';
 import { AppRoutingModule } from './app-routing.module';
+import { PageNotFoundComponent } from './routes-example/page-not-found/page-not-found.component';
+import { AuthGuard } from './auth-guard-service';
+import { AuthService } from './auth.service';
+import { CanDeactivateGuard } from './routes-example/servers/edit-server/can-deactivate-guard.service';
+import { ErrorPageComponent } from './routes-example/error-page/error-page.component';
+import { ServerResolver } from './routes-example/servers/server/server.resolver.service';
 
 @NgModule({
   declarations: [
@@ -60,6 +66,8 @@ import { AppRoutingModule } from './app-routing.module';
     ServersRouteComponent,
     EditServerRouteComponent,
     HomeComponent,
+    PageNotFoundComponent,
+    ErrorPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +80,11 @@ import { AppRoutingModule } from './app-routing.module';
   providers: [
     AccountService,
     //Router-Example services
-    ServersRouteService
+    ServersRouteService,
+    AuthGuard,
+    AuthService,
+    CanDeactivateGuard,
+    ServerResolver
   ],
   bootstrap: [AppComponent]
 })
