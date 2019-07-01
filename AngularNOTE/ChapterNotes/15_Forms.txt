@@ -1,0 +1,248 @@
+Forms
+	1. Template Driven Approach
+	2. Reactive Approach
+	
+### Template Driven Approach ###
+	1. In app.module.ts, import FormsModule (import { FormsModule} from '@angular/forms';
+	2. Angular creates automatically js presentation of form form-elements elements.
+	3. To indicate any html element to be part of Angular Form, add the "ngModel" attibute to the HTML element.
+		<input type="text" id="userName" class="form-control" name="userName" required ngModel>
+	4. For From submit, angular provides "ngSubmit" directive
+	5. Form data can be passed to component(ts-file) using local-reference using ngForm: (NgForm)(created by angular) on submit.
+		<form (ngSubmit)="onSubmit(frm)" #frm="ngForm">
+	**apart from passing form object as submit param, @ViewChild can be used to access the form object directly from ts file, even before submit.
+		@ViewChild('frm') userForm: NgForm;
+	in file: 
+		src\app\form-template-driven\form-template-driven.component.ts
+		src\app\form-template-driven\form-template-driven.component.html
+	
+	
+	**Few important NgForm properties:
+		NgForm.dirty: if something changed/entered-types in form.
+		NgForm.invalid: no validation applied
+		NgForm.touched: if any elements are clicked
+		NgForm.errors: for any error data/information.
+		
+Validating user input:
+	1. add needed validation attibute on the form-element like: required, email(directive not a validator)
+	2. Access form object using @ViewChild
+		@ViewChild('frm') userForm: NgForm;		
+	3. angular added in-build css classes like ng-dirty, ng-touched, ng-invalid
+		in file: src\app\form-template-driven\form-template-driven.component.html
+		<span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid Email!</span>
+		<p *ngIf="!userData.valid && userData.touched">User data is invalid!</p>
+	
+
+Accessing form and form-element using local reference:
+	<form (ngSubmit)="onSubmit(frm)" #frm="ngForm">
+		**Here form object can be access using local reference #frm by binding it to "ngForm"
+	<input type="text" id="email" class="form-control" ngModel name="email" required email #email="ngModel">
+		**Here individual element can be accessed using local reference #email by binding it to "ngModel"		
+To set value of binded element of ngModel using property data binding: [ngModel]="dafaultQuestion"
+	in file: 
+		<select class="form-control" id="secret" [ngModel]="dafaultQuestion" name="secret">
+	where:
+	dafaultQuestion is a property of component's ts file.
+To set value with two-way data binding to react on any change of intered value:
+	<textarea name="questionAnswer" rows="3" class="form-control" [(ngModel)]="answer"></textarea>
+To set value of form element values:
+	1. 1st Approach: (setValue: mainly used to set the whole form)
+		suggestedUserName(){
+			const suggestedName = "SuperUser";
+			this.userForm.setValue({
+			  userData: {
+				userName: suggestedName,
+				email: '',
+				gender: 'male'
+			  },
+			  secret: 'pet',
+			  questionAnswer: ''
+			})
+		}
+	2. 2nd Approach(Better approach): patchValue: To override parts of the form and to retain other form element values.
+		suggestedUserName(){
+			const suggestedName = "SuperUser";
+			
+			this.userForm.form.patchValue({
+			  userData: {
+				userName: suggestedName
+			  }
+			});
+		  }
+To access submited form values:
+	onSubmit(){
+		console.log(this.userForm)
+		this.formSubmitted = true;
+		this.userDetail.userName = this.userForm.value.userData.userName;
+		this.userDetail.email = this.userForm.value.userData.email;
+		this.userDetail.gender = this.userForm.value.userData.gender;
+		this.userDetail.secretQ = this.userForm.value.secret;
+		this.userDetail.answer = this.userForm.value.questionAnswer;
+
+		//Reset form data
+		this.userForm.reset();
+	  }
+	
+Grouping Form Controls:
+	Form elements can be grouped by "ngModelGroup" attibute by putting in a parent element like <div>:
+	The group element name can also be used to access child elements like for object:
+		<div id="user-data" ngModelGroup="userData" #userData="ngModelGroup">
+			<input...>
+			....
+		</div>
+	To access ngModelGroup data using group name:
+		<p *ngIf="!userData.valid && userData.touched">User data is invalid!</p>
+	
+	
+	
+Built-in Validators & Using HTML5 Validation
+	Which Validators do ship with Angular? 
+	Check out the Validators class: 
+		https://angular.io/api/forms/Validators - 
+		these are all built-in validators, though that are the methods which actually get executed 
+		(and which you later can add when using the reactive approach).
+
+For the template-driven approach, you need the directives. You can find out their names, by searching for "validator" in the official docs: 
+	https://angular.io/api?type=directive - everything marked with "D" is a directive and can be added to your template.
+
+	Additionally, you might also want to enable HTML5 validation (by default, Angular disables it). 
+	You can do so by adding the ngNativeValidate  to a control in your template.	
+	
+	
+### Reactive Approach ###
+	1. This programatic approach to create form and form elements.
+	2. FormGroup object will be used for creating form object elements 
+		import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+	3. Import ReactiveFormsModule in app.module.ts file.
+		import { ReactiveFormsModule} from '@angular/forms';
+	4. create form and form elements programatically:
+		ngOnInit() {
+			this.signupForm = new FormGroup({
+			  userData: new FormGroup({
+				'userName': new FormControl(null, [Validators.required, this.forbiddenNames.bind(this)]),
+				'email': new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmails),        
+			  }),      
+			  'gender': new FormControl('male'),
+			  'hobbies': new FormArray([])
+			});
+		}
+	5. To bind form elements with reactive-form properties:
+		a. bind "formGroup" of form with form-group-name used in ts file. like: [formGroup]="signupForm"
+		b. for individual element, add "formControlName" directive and assine property-name to bind.
+			<form [formGroup]="signupForm">
+				<div formGroupName="userData">
+					<input type="text"	id="username" class="form-control"  formControlName="userName"  #locRefUserName>
+					<input type="text" id="email"  class="form-control"  formControlName="email">
+				</div>
+				<div class="form-group" *ngFor="let hobbyControl of signupForm.get('hobbies').controls; let i = index">
+					<input type="text" class="form-control" [formControlName]="i"> 
+				</div>
+			</form>
+
+Validating form:	
+	set validators on each field as: [Validators.required, Validators.email]
+		this.signupForm = new FormGroup({
+		  'userName': new FormControl(null, [Validators.required, this.forbiddenNames.bind(this)]),
+		  'email': new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmails),      
+		  'gender': new FormControl('male'),
+		  'hobbies': new FormArray([])
+		});
+		  
+To access validation on HTML/selector page:
+	in file: src\app\form-reactive\form-reactive.component.html
+	  <span class="help-block" *ngIf="!signupForm.get('userData.email').valid && signupForm.get('userData.email').touched" >
+		  Please enter a valid email!
+	  </span>
+	  <span *ngIf="signupForm.get('userData.userName').errors['nameIsForbidden']">This name is invalid!</span>
+		  Please enter a valid user name!
+	  </span>
+	  
+Nested from Groups for grouping elements:
+	this.signupForm = new FormGroup({
+      userData: new FormGroup({
+        'userName': new FormControl(null, [Validators.required, this.forbiddenNames.bind(this)]),
+        'email': new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmails),        
+      }),      
+      'gender': new FormControl('male'),
+      'hobbies': new FormArray([])
+    });
+	
+	** Based on the elements sturcture in ts file, it should match the sturcture on HTML/selector as well.
+Reactive form directives: formGroupName, formControlName, formArrayName
+
+Custom Validators:
+	It should take a FromControl:
+	in file: src\app\form-reactive\form-reactive.component.ts	
+		forbiddenNames(control: FormControl): {[s: string]: boolean} {
+			if( this.forbiddenUserName.indexOf(control.value) !== -1){
+			  return { 'nameIsForbidden': true }
+			}
+			//if validation is false either return null or no return but do not pass with false object.
+			return null;
+		  }
+		  
+Error Codes:
+	Accessing error codes from elements:
+	  <span class="help-block" *ngIf="!signupForm.get('userData.userName').valid && signupForm.get('userData.userName').touched" >
+		<span *ngIf="signupForm.get('userData.userName').errors['nameIsForbidden']">This name is invalid!</span>
+		  Please enter a valid user name!
+	  </span>
+	  
+Creating Custom Asunc Validators:
+	 //Asyncronous validation (can be used in webservice calls)
+	  forbiddenEmails(control: FormControl): Promise<any> | Observable<any> {
+		const promise = new Promise<any>( (resolve, reject) => {
+		  setTimeout(() => {
+			if( control.value === 'test@test.com'){
+			  //inside promse we resolve instead of return
+			  resolve({emailIsForbideen: true})
+			} else {
+			  //inside promse we resolve instead of return
+			  resolve(null)
+			}
+		  }, 1500);
+		})
+		
+		//finally return the promise itself
+		return promise;
+	  }
+	  
+Reactive: Reacting to Status or Value Changes	  
+	//Can be subscribed to form or individual form-controls
+    this.signupForm.valueChanges.subscribe(
+      (value) => console.log(value)
+    )
+    //captures any status change happening on form/control status
+    this.signupForm.statusChanges.subscribe(
+      (status) => console.log(status)
+    )
+	
+Reactive: Setting and Patching Values:
+	//Set all the form values using setValue
+	  onSetValue(){
+		this.signupForm.setValue(
+		  { userData: {
+			  userName: "ALL User",
+			  email: 'allField@test.com'
+			},
+			gender: 'female',
+			hobbies: []
+		  }
+		)
+	  }
+
+	//Set partial form values using patchValue
+	  onPatchValue(){
+		this.signupForm.patchValue(
+		  { userData: {
+			  userName: "Patched User",
+			  email: 'patched@test.com'
+			}
+		  }
+		)
+	  }
+				
+		
+	
+		
+	

@@ -38,6 +38,7 @@ import { AuthService } from './auth.service';
 import { CanDeactivateGuard } from './routes-example/servers/edit-server/can-deactivate-guard.service';
 import { ErrorPageComponent } from './routes-example/error-page/error-page.component';
 import { ServerResolver } from './routes-example/servers/server/server.resolver.service';
+import { ObservableExampleComponent } from './observable-example/observable-example.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { ServerResolver } from './routes-example/servers/server/server.resolver.
     HomeComponent,
     PageNotFoundComponent,
     ErrorPageComponent,
+    ObservableExampleComponent,
   ],
   imports: [
     BrowserModule,

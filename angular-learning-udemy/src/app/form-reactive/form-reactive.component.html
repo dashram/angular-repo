@@ -1,4 +1,6 @@
-<h3>Form with Reactive Approach</h3>
+<div style="text-align:center">
+  <h3>Form with Reactive Approach</h3>
+</div>
 
 <div class="container">
   <div class="row">
@@ -58,6 +60,18 @@
         <button class="btn btn-primary" type="button" (click)="onSetValue()">Set Value</button>
         <button class="btn btn-primary" type="button" (click)="onPatchValue()">Patch Value</button>
       </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12" >
+      <hr>
+      <h3>Submitted Data: </h3>
+      <p>User Name: {{userDetail.userName}} </p>
+      <p>eMail: {{userDetail.email}} </p>
+      <p>Gender: {{userDetail.gender}} </p>
+      <p>Secrete question: Your first {{userDetail.secretQ}}? </p>
+      <p>Answer: {{userDetail.answer}} </p>
     </div>
   </div>
 </div>

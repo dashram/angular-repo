@@ -1,0 +1,125 @@
+Observable
+	Its basically a Data Source
+	In angular Observable is basically an object that we import from third party package "rxjs"
+	It follows Observable pattern, Observer and Observable
+	Observable 
+		1.emit data
+		2.binded to http
+	It mainly used in Asyncronous data communication
+	
+	Observable we subscribe, to be informed about data change
+	Observable are stream of data, when new data emited subscriber get notified with updated data.
+	
+	in src\app\routes-example\servers\server\serverroute.component.ts:
+	below is observable, a stream of routes parameters
+		this.activateRoute.params
+		
+	All Observable does not stop automatically and keep on emitting value if though not being used. It amy lead to memorry leak/resource crunch
+
+Stopping/Unsubscribing Observable:
+	import { interval, Subscription } from 'rxjs';
+	...
+	private fristObserSubscription: Subscription;
+	ngOnInit() {
+		//it will fire a new value every second
+		this.fristObserSubscription = interval(1000).subscribe(
+		  count => {
+			console.log("counting.. " + count)
+		  }
+		)
+	  }
+	  
+	ngOnDestroy() {
+		this.fristObserSubscription.unsubscribe();
+	  }
+	  
+	Observable provied by Angular, are managed by Angular so no need to subscribe explicitly.
+	
+Building Custom Observable:
+	in file: src\app\observable-example\observable-example.component.ts
+		import { interval, Subscription, Observable } from 'rxjs';
+		//Building a custom Observable
+		const customIntervalObservable = Observable.create( observer=> {
+		  let count = 0;
+		  setInterval( () =>{
+			observer.next(count);
+			count++;
+		  }, 1000)
+		})
+
+		//subscribe to custom Observable
+		customIntervalObservable.subscribe( data=> {
+		  console.log(data);
+		});
+		
+Observable mainly contains 3 parts: data(Data), error(Error), completion(any)
+	in file: src\app\observable-example\observable-example.component.ts
+		//subscribe to custom Observable
+		customIntervalObservable.subscribe( 
+		  //1st part of subscription is data
+		  data=> {
+			console.log(data);
+		  },
+		  //2nd part of subscription is error
+		  error=> {
+			console.log(error);
+			alert(error.message);
+		  },
+		  //3rd part, completion handler of subscription, but on error completion part does not executes
+		  () => {
+			console.log('Completed...')
+		  }      
+		);
+		
+	Observable of above subscription is:
+		//Building a custom Observable
+		const customIntervalObservable = Observable.create( observer=> {
+		  let count = 0;
+		  setInterval( () =>{
+			observer.next(count);
+			if(count === 4){
+			  //on completion, observable stops emiting data(stops)
+			  observer.complete();
+			}
+			if(count>5) {
+			  //Throws error from Observable
+			  observer.error(new Error('Count is greater than 5'));
+			}
+			count++;
+		  }, 1000)
+		})
+		
+Transform Observable data using rxjs Operators:	https://www.learnrxjs.io/operators/
+	//Transform Observable data using rxjs Operators
+    customIntervalObservable.pipe(
+      map((data: number) => {
+        return 'Round: ' + (data + 1);
+      }
+      ))
+	  
+Subject(This is an Observable): (Better approach instead of using EventEmitter, use Subject)
+	Instead of EventEmitter, Subjects can be used. And like .emit() method, .next() will be used for triggering the next event.
+	src\app\databind\cockpit\cockpit.component.ts
+		instead of using:
+		serverCreated = new EventEmitter<{serverName: string, serverContent: string}>();
+		use "Subject":
+		serverCreated= new Subject<{serverName: string, serverContent: string}>();		
+	Here Subject is a generic type and takes, which data it wants to emit.
+	
+	To emit data as in file: 
+		instead of using:
+		onAddServer() {
+			this.serverCreated.emit({serverName: this.newServerName, serverContent: this.newServerContent });
+		}
+		use:
+		onAddServer() {
+			this.serverCreated.next({serverName: this.newServerName, serverContent: this.newServerContent });
+		}
+	
+	Use Subject instead of EventEmitter when using cross component communication
+	If using @Output, for child communication EventEmitter can still be best to use.
+	
+Useful Resources:
+	Official Docs: https://rxjs-dev.firebaseapp.com/
+	RxJS Series: https://academind.com/learn/javascript/understanding-rxjs/
+	Updating to RxJS 6: https://academind.com/learn/javascript/rxjs-6-what-changed/	

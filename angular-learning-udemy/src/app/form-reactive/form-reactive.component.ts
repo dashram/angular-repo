@@ -14,6 +14,14 @@ export class FormReactiveComponent implements OnInit {
   signupForm: FormGroup;
   forbiddenUserName = ['Chris', 'Anna'];
 
+  userDetail = {
+    userName: '',
+    email: '',
+    gender: '',
+    secretQ: '',
+    answer: ''
+  }
+
   constructor() { }
 
   ngOnInit() {
@@ -92,6 +100,11 @@ export class FormReactiveComponent implements OnInit {
 
   onSubmit(){
     console.log(this.signupForm);
+    this.userDetail.userName = this.signupForm.value.userData.userName;
+    this.userDetail.email = this.signupForm.value.userData.email;
+    this.userDetail.gender = this.signupForm.value.userData.gender;
+    this.userDetail.secretQ = this.signupForm.value.secret;
+    this.userDetail.answer = this.signupForm.value.questionAnswer;
     this.signupForm.reset();
   }
 }
